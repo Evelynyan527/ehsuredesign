@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>门店活动小程序</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #eef3fa;
+            --panel: #ffffff;
+            --text: #111827;
+            --muted: #64748b;
+            --line: #dbe3ef;
+            --blue: #246bfe;
+            --green: #0f9f6e;
+            --amber: #e79b18;
+            --red: #dc4c64;
+            --cyan: #12a4b6;
+            --radius: 8px;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                linear-gradient(120deg, rgba(36, 107, 254, 0.10), rgba(15, 159, 110, 0.08)),
+                var(--bg);
+            color: var(--text);
+            font-family: "PingFang SC", "Microsoft YaHei", "Segoe UI", Arial, sans-serif;
+            line-height: 1.5;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        button,
+        a {
+            cursor: pointer;
+        }
+
+        .shell {
+            width: min(100%, 430px);
+            min-height: 100vh;
+            margin: 0 auto;
+            background: #f7f9fd;
+            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.16);
+            position: relative;
+            padding-bottom: 78px;
+        }
+
+        .status {
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 18px;
+            font-size: 11px;
+            font-weight: 800;
+            background: #fff;
+        }
+
+        .topbar {
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 0 16px;
+            border-bottom: 1px solid var(--line);
+            background: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 5;
+        }
+
+        .topbar h1 {
+            font-size: 17px;
+            letter-spacing: 0;
+        }
+
+        .icon-btn {
+            width: 34px;
+            height: 34px;
+            display: grid;
+            place-items: center;
+            border-radius: 8px;
+            border: 1px solid var(--line);
+            background: #fff;
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        .page {
+            display: none;
+            padding: 14px;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .hero {
+            border-radius: var(--radius);
+            padding: 18px;
+            color: #fff;
+            background:
+                linear-gradient(135deg, rgba(36, 107, 254, 0.97), rgba(15, 159, 110, 0.94)),
+                radial-gradient(circle at top right, rgba(255, 255, 255, 0.34), transparent 36%);
+        }
+
+        .hero h2 {
+            font-size: 20px;
+            margin-bottom: 8px;
+            letter-spacing: 0;
+        }
+
+        .hero p {
+            font-size: 13px;
+            opacity: 0.94;
+        }
+
+        .card {
+            margin-top: 12px;
+            border-radius: var(--radius);
+            background: var(--panel);
+            border: 1px solid var(--line);
+            padding: 14px;
+        }
+
+        .card-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .card h3 {
+            font-size: 15px;
+            letter-spacing: 0;
+        }
+
+        .card p,
+        .list li {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .list {
+            list-style: none;
+            display: grid;
+            gap: 8px;
+        }
+
+        .list li {
+            min-height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            border-bottom: 1px solid #eef2f7;
+        }
+
+        .list li:last-child {
+            border-bottom: 0;
+        }
+
+        .action-list li {
+            display: block;
+            min-height: 0;
+        }
+
+        .list-action {
+            width: 100%;
+            min-height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            border: 0;
+            background: transparent;
+            color: var(--muted);
+            text-align: left;
+        }
+
+        .list-action strong {
+            color: var(--text);
+            font-size: 13px;
+        }
+
+        .list-action small {
+            display: block;
+            margin-top: 2px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 24px;
+            padding: 0 8px;
+            border-radius: 999px;
+            background: #f1f5f9;
+            color: #475569;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .tag.ok {
+            background: #e8f8f1;
+            color: #087953;
+        }
+
+        .tag.warn {
+            background: #fff4df;
+            color: #97610b;
+        }
+
+        .tag.info {
+            background: #eaf4ff;
+            color: #1959c6;
+        }
+
+        .tag.danger {
+            background: #ffecef;
+            color: #b4233a;
+        }
+
+        .btn {
+            width: 100%;
+            min-height: 42px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+            border: 0;
+            border-radius: var(--radius);
+            background: var(--blue);
+            color: #fff;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .btn.secondary {
+            background: #eef4ff;
+            color: var(--blue);
+        }
+
+        .btn.green {
+            background: var(--green);
+        }
+
+        .upload-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .upload {
+            min-height: 106px;
+            display: grid;
+            place-items: center;
+            text-align: center;
+            border-radius: var(--radius);
+            border: 1px dashed #9db2d3;
+            background: #f9fbff;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .upload.active {
+            border-style: solid;
+            border-color: rgba(36, 107, 254, 0.55);
+            background: #eef4ff;
+            color: var(--blue);
+        }
+
+        .upload i {
+            display: block;
+            font-size: 24px;
+            margin-bottom: 7px;
+            color: var(--blue);
+        }
+
+        .progress {
+            height: 8px;
+            border-radius: 999px;
+            overflow: hidden;
+            background: #e5edf7;
+            margin-top: 10px;
+        }
+
+        .progress span {
+            display: block;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, var(--blue), var(--green));
+        }
+
+        .role-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .role-btn {
+            min-height: 42px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: #f4f7fc;
+            color: var(--text);
+            font-weight: 800;
+        }
+
+        .role-btn.active {
+            border-color: var(--blue);
+            background: var(--blue);
+            color: #fff;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            left: 50%;
+            bottom: 0;
+            width: min(100%, 430px);
+            transform: translateX(-50%);
+            height: 68px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-top: 1px solid var(--line);
+            background: #fff;
+            z-index: 6;
+        }
+
+        .bottom-nav button {
+            display: grid;
+            place-items: center;
+            gap: 2px;
+            border: 0;
+            background: #fff;
+            color: var(--muted);
+            font-size: 11px;
+        }
+
+        .bottom-nav i {
+            font-size: 17px;
+        }
+
+        .bottom-nav button.active {
+            color: var(--blue);
+        }
+
+        .sheet-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 8;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            background: rgba(15, 23, 42, 0.34);
+        }
+
+        .sheet-backdrop[hidden] {
+            display: none;
+        }
+
+        .sheet {
+            width: min(100%, 430px);
+            border-radius: 18px 18px 0 0;
+            background: #fff;
+            padding: 16px;
+            box-shadow: 0 -18px 50px rgba(15, 23, 42, 0.22);
+        }
+
+        .sheet-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .sheet-head h3 {
+            font-size: 17px;
+            letter-spacing: 0;
+        }
+
+        .sheet p {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .sheet-list {
+            list-style: none;
+            display: grid;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .sheet-list li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 10px;
+            border-radius: var(--radius);
+            background: #f7f9fd;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .sheet-close {
+            width: 32px;
+            height: 32px;
+            display: grid;
+            place-items: center;
+            flex: 0 0 auto;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: #fff;
+            color: var(--text);
+        }
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: 82px;
+            width: min(calc(100% - 28px), 400px);
+            transform: translate(-50%, 12px);
+            padding: 12px 14px;
+            border-radius: var(--radius);
+            color: #fff;
+            background: #111827;
+            box-shadow: 0 16px 40px rgba(15, 23, 42, 0.22);
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.22s ease;
+            font-size: 13px;
+            z-index: 7;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+    </style>
+</head>
+<body>
+    <main class="shell">
+        <div class="status">
+            <span>21:54</span>
+            <span><i class="fa-solid fa-signal"></i> <i class="fa-solid fa-wifi"></i> 100%</span>
+        </div>
+        <header class="topbar">
+            <a class="icon-btn" href="index.html"><i class="fa-solid fa-arrow-left"></i></a>
+            <h1>活动小程序</h1>
+            <a class="icon-btn" href="index.html#dashboard"><i class="fa-solid fa-desktop"></i></a>
+        </header>
+
+        <section id="home" class="page active">
+            <div class="hero">
+                <h2>夏季核心 SKU 套餐订购奖励</h2>
+                <p>上传送货单和陈列照片，系统自动识别套餐，最快当天发放奖励。</p>
+            </div>
+            <div class="card">
+                <div class="card-head">
+                    <h3>进行中的活动</h3>
+                    <span class="tag info">门店端</span>
+                </div>
+                <ul class="list action-list">
+                    <li>
+                        <button class="list-action" data-detail="package">
+                            <span><strong>订购套餐达标</strong><small>A/B/C 三品类套餐</small></span>
+                            <span class="tag ok">¥120</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="list-action" data-detail="display">
+                            <span><strong>标准货架陈列</strong><small>陈列面数、价签、黄金层</small></span>
+                            <span class="tag info">¥80</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="list-action" data-detail="partner">
+                            <span><strong>二批商带动门店</strong><small>二批商出货与门店签收</small></span>
+                            <span class="tag warn">返利</span>
+                        </button>
+                    </li>
+                </ul>
+                <button class="btn" data-page="upload"><i class="fa-solid fa-camera"></i>立即上传证据</button>
+                <a class="btn secondary" href="index.html#activity"><i class="fa-solid fa-sliders"></i>查看后台规则</a>
+            </div>
+            <div class="card">
+                <div class="card-head">
+                    <h3>达标条件</h3>
+                    <span class="tag ok">启用中</span>
+                </div>
+                <p>A/B/C 三个品类各不少于 1 件，陈列评分达到 80 分。</p>
+                <button class="btn secondary" data-detail="condition"><i class="fa-solid fa-list-check"></i>查看条件明细</button>
+            </div>
+        </section>
+
+        <section id="upload" class="page">
+            <div class="hero">
+                <h2>上传活动证据</h2>
+                <p>拍照后 AI 会自动识别 SKU、数量、供货主体和陈列质量。</p>
+            </div>
+            <div class="card">
+                <div class="card-head">
+                    <h3>证据类型</h3>
+                    <span class="tag warn" id="uploadStatus">待提交</span>
+                </div>
+                <div class="upload-grid">
+                    <button class="upload" id="uploadReceipt" data-detail="receipt"><span><i class="fa-solid fa-receipt"></i>送货单</span></button>
+                    <button class="upload" id="uploadShelf" data-detail="shelf"><span><i class="fa-solid fa-border-all"></i>货架陈列</span></button>
+                    <button class="upload" id="uploadPurchase" data-detail="purchase"><span><i class="fa-solid fa-file-invoice"></i>采购单</span></button>
+                    <button class="upload" id="uploadSign" data-detail="sign"><span><i class="fa-solid fa-pen-to-square"></i>签收单</span></button>
+                </div>
+                <button class="btn green" id="submitEvidence"><i class="fa-solid fa-cloud-arrow-up"></i>提交识别</button>
+            </div>
+            <div class="card">
+                <div class="card-head">
+                    <h3>识别提示</h3>
+                    <span class="tag info">AI</span>
+                </div>
+                <p id="uploadHint">请保证单据抬头、SKU 名称、数量和日期清晰可见。</p>
+                <a class="btn secondary" href="index.html#audit"><i class="fa-solid fa-wand-magic-sparkles"></i>去后台审核</a>
+            </div>
+        </section>
+
+        <section id="reward" class="page">
+            <div class="hero">
+                <h2>奖励进度</h2>
+                <p>所有奖励、货补和二批商返利都可以在这里查看。</p>
+            </div>
+            <div class="card">
+                <div class="card-head">
+                    <h3>本月预计奖励</h3>
+                    <span class="tag ok">进行中</span>
+                </div>
+                <strong style="font-size:30px">¥320</strong>
+                <div class="progress"><span style="width:78%"></span></div>
+                <p style="margin-top:10px">2 个活动已达标，1 个等待陈列复核。</p>
+                <button class="btn secondary" data-detail="rewardTotal"><i class="fa-solid fa-chart-simple"></i>查看奖励构成</button>
+            </div>
+            <div class="card">
+                <div class="card-head">
+                    <h3>奖励明细</h3>
+                    <span class="tag info">3笔</span>
+                </div>
+                <ul class="list action-list">
+                    <li>
+                        <button class="list-action" data-detail="rewardPackage">
+                            <span><strong>套餐订购奖励</strong><small>核销单 HX-202606-0187</small></span>
+                            <span class="tag ok">已通过</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="list-action" data-detail="rewardDisplay">
+                            <span><strong>陈列奖励</strong><small>价签照片待复核</small></span>
+                            <span class="tag warn">复核中</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="list-action" data-detail="rewardSubsidy">
+                            <span><strong>经销商货补</strong><small>费用归属华东 / D-021</small></span>
+                            <span class="tag info">已入池</span>
+                        </button>
+                    </li>
+                </ul>
+                <a class="btn secondary" href="index.html#settlement"><i class="fa-solid fa-coins"></i>查看后台核销</a>
+            </div>
+        </section>
+
+        <section id="profile" class="page">
+            <div class="hero">
+                <h2>主体资料</h2>
+                <p>门店与二批商都可参与活动，系统按主体类型匹配规则。</p>
+            </div>
+            <div class="card">
+                <div class="card-head">
+                    <h3>选择参与身份</h3>
+                    <span class="tag info" id="roleTag">门店端</span>
+                </div>
+                <div class="role-grid">
+                    <button class="role-btn active" id="roleStore">门店</button>
+                    <button class="role-btn" id="rolePartner">二批商</button>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-head">
+                    <h3 id="profileTitle">浦东便利店 A017</h3>
+                    <span class="tag ok">已认证</span>
+                </div>
+                <ul class="list action-list">
+                    <li>
+                        <button class="list-action" data-detail="profileArea">
+                            <span><strong>归属区域</strong><small>费用和活动预算归属</small></span>
+                            <span id="profileArea">华东</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="list-action" data-detail="profileDealer">
+                            <span><strong>合作经销商</strong><small>供货与货补关联主体</small></span>
+                            <span id="profileDealer">D-021</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="list-action" data-detail="profileCert">
+                            <span><strong>认证状态</strong><small>门店/二批商资质审核</small></span>
+                            <span class="tag ok">已认证</span>
+                        </button>
+                    </li>
+                </ul>
+                <a class="btn secondary" href="index.html#partner"><i class="fa-solid fa-warehouse"></i>查看二批商后台</a>
+            </div>
+        </section>
+
+        <nav class="bottom-nav">
+            <button class="active" data-page="home"><i class="fa-solid fa-house"></i><span>活动</span></button>
+            <button data-page="upload"><i class="fa-solid fa-camera"></i><span>上传</span></button>
+            <button data-page="reward"><i class="fa-solid fa-gift"></i><span>奖励</span></button>
+            <button data-page="profile"><i class="fa-solid fa-user"></i><span>我的</span></button>
+        </nav>
+    </main>
+
+    <div class="sheet-backdrop" id="detailSheet" hidden>
+        <section class="sheet" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+            <div class="sheet-head">
+                <div>
+                    <h3 id="detailTitle">功能详情</h3>
+                    <p id="detailSummary">点击页面功能后在这里展示业务结果。</p>
+                </div>
+                <button class="sheet-close" id="closeDetail" aria-label="关闭"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <ul class="sheet-list" id="detailList"></ul>
+            <button class="btn secondary" id="detailConfirm"><i class="fa-solid fa-circle-check"></i>知道了</button>
+        </section>
+    </div>
+
+    <div class="toast" id="toast">操作已完成</div>
+
+    <script>
+        const pages = document.querySelectorAll(".page");
+        const navButtons = document.querySelectorAll("[data-page]");
+        const toast = document.getElementById("toast");
+        const detailSheet = document.getElementById("detailSheet");
+        const detailTitle = document.getElementById("detailTitle");
+        const detailSummary = document.getElementById("detailSummary");
+        const detailList = document.getElementById("detailList");
+
+        const detailData = {
+            package: {
+                title: "订购套餐达标",
+                summary: "系统会从送货单里识别 SKU、数量、供货主体和日期，自动判断是否满足套餐。",
+                rows: [["当前状态", "可参与"], ["奖励金额", "¥120"], ["判定条件", "A/B/C 三品类各不少于 1 件"]]
+            },
+            display: {
+                title: "标准货架陈列",
+                summary: "上传货架照片后，AI 会识别陈列面数、价签、黄金层位置和遮挡情况。",
+                rows: [["当前评分", "86分"], ["奖励金额", "¥80"], ["复核要求", "价签清晰、主推SKU连续陈列"]]
+            },
+            partner: {
+                title: "二批商带动门店",
+                summary: "二批商可上传采购、出货和门店签收证明，达标后进入二批商返利池。",
+                rows: [["参与身份", "二批商"], ["返利口径", "按下游达标门店统计"], ["核销归属", "D-044 / 华东"]]
+            },
+            condition: {
+                title: "达标条件明细",
+                summary: "套餐订购和陈列活动可以组合判断，满足规则后自动进入奖励发放。",
+                rows: [["套餐SKU", "SKU-A、SKU-B、SKU-C"], ["陈列评分", "不低于 80 分"], ["证据要求", "送货单 + 货架陈列照片"]]
+            },
+            receipt: {
+                title: "送货单识别",
+                summary: "用于提取供货主体、日期、SKU、数量、金额和门店名称。",
+                rows: [["识别重点", "SKU名称、数量、日期"], ["示例结果", "SKU-A 2件，SKU-B 1件，SKU-C 1件"], ["置信度", "96%"]]
+            },
+            shelf: {
+                title: "货架陈列识别",
+                summary: "用于判断产品是否真实上架陈列，避免只买不陈列。",
+                rows: [["识别重点", "陈列面数、价签、黄金层"], ["示例结果", "连续陈列 7 个面"], ["陈列评分", "86分"]]
+            },
+            purchase: {
+                title: "采购单识别",
+                summary: "用于二批商或门店补充采购证明，与送货单交叉校验。",
+                rows: [["识别重点", "采购主体、SKU、金额"], ["适用主体", "门店 / 二批商"], ["异常处理", "金额或主体不一致时转人工复核"]]
+            },
+            sign: {
+                title: "签收单识别",
+                summary: "用于证明货物已送达下游门店，二批商活动尤其需要。",
+                rows: [["识别重点", "签收门店、日期、签收人"], ["适用活动", "二批商带动门店"], ["核销用途", "返利归属确认"]]
+            },
+            submitted: {
+                title: "证据提交结果",
+                summary: "证据包已进入后台审核，AI 会自动匹配活动并给出奖励建议。",
+                rows: [["证据包", "A017-20260601"], ["后台状态", "待AI识别"], ["下一步", "可去后台审核页查看结果"]]
+            },
+            rewardTotal: {
+                title: "奖励构成",
+                summary: "本月预计奖励由套餐订购、陈列活动和经销商货补组成。",
+                rows: [["套餐订购", "¥120"], ["陈列活动", "¥80"], ["经销商货补", "¥120"]]
+            },
+            rewardPackage: {
+                title: "套餐订购奖励",
+                summary: "该奖励已通过 AI 自动判定，核销单已生成。",
+                rows: [["核销单", "HX-202606-0187"], ["发放对象", "浦东便利店 A017"], ["状态", "已通过"]]
+            },
+            rewardDisplay: {
+                title: "陈列奖励",
+                summary: "陈列照片已识别，但价签特写不足，等待复核。",
+                rows: [["当前状态", "复核中"], ["待补充", "价签特写"], ["预计奖励", "¥80"]]
+            },
+            rewardSubsidy: {
+                title: "经销商货补",
+                summary: "门店奖励通过后，经销商货补自动进入对应费用池。",
+                rows: [["费用归属", "华东 / D-021"], ["货补金额", "¥80"], ["状态", "已入池"]]
+            },
+            profileArea: {
+                title: "归属区域",
+                summary: "区域决定活动预算、费用归属和核销统计口径。",
+                rows: [["当前区域", "华东"], ["城市", "上海"], ["预算池", "华东大区活动预算"]]
+            },
+            profileDealer: {
+                title: "合作经销商",
+                summary: "经销商用于确认供货来源、费用归属和货补发放。",
+                rows: [["经销商编号", "D-021"], ["合作状态", "有效"], ["货补口径", "按通过单据归集"]]
+            },
+            profileCert: {
+                title: "认证状态",
+                summary: "已认证主体可以参与活动、上传证据并领取奖励。",
+                rows: [["主体类型", "门店"], ["认证结果", "已通过"], ["可参与活动", "套餐订购、陈列活动"]]
+            }
+        };
+
+        function showToast(message) {
+            toast.textContent = message;
+            toast.classList.add("show");
+            window.clearTimeout(showToast.timer);
+            showToast.timer = window.setTimeout(() => toast.classList.remove("show"), 2300);
+        }
+
+        function showDetail(key) {
+            const detail = detailData[key];
+            if (!detail) return;
+            detailTitle.textContent = detail.title;
+            detailSummary.textContent = detail.summary;
+            detailList.innerHTML = detail.rows.map(row => `<li><span>${row[0]}</span><strong>${row[1]}</strong></li>`).join("");
+            detailSheet.hidden = false;
+        }
+
+        function closeDetail() {
+            detailSheet.hidden = true;
+        }
+
+        function showPage(pageId) {
+            pages.forEach(page => page.classList.toggle("active", page.id === pageId));
+            document.querySelectorAll(".bottom-nav [data-page]").forEach(btn => {
+                btn.classList.toggle("active", btn.dataset.page === pageId);
+            });
+            const url = new URL(window.location.href);
+            url.searchParams.set("page", pageId);
+            history.replaceState(null, "", url);
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        document.addEventListener("click", event => {
+            const pageTrigger = event.target.closest("[data-page]");
+            if (pageTrigger) {
+                showPage(pageTrigger.dataset.page);
+            }
+
+            const detailTrigger = event.target.closest("[data-detail]");
+            if (detailTrigger) {
+                showDetail(detailTrigger.dataset.detail);
+            }
+        });
+
+        document.getElementById("closeDetail").addEventListener("click", closeDetail);
+        document.getElementById("detailConfirm").addEventListener("click", closeDetail);
+        detailSheet.addEventListener("click", event => {
+            if (event.target === detailSheet) {
+                closeDetail();
+            }
+        });
+
+        document.querySelectorAll(".upload").forEach(btn => {
+            btn.addEventListener("click", () => {
+                btn.classList.toggle("active");
+                const selected = document.querySelectorAll(".upload.active").length;
+                document.getElementById("uploadHint").textContent = selected
+                    ? "已选择 " + selected + " 类证据，可提交给 AI 识别。"
+                    : "请保证单据抬头、SKU 名称、数量和日期清晰可见。";
+            });
+        });
+
+        document.getElementById("submitEvidence").addEventListener("click", () => {
+            document.getElementById("uploadStatus").className = "tag ok";
+            document.getElementById("uploadStatus").textContent = "已提交";
+            document.getElementById("uploadHint").textContent = "已提交，AI 正在识别套餐 SKU 和货架陈列。后台审核页会同步显示结果。";
+            showDetail("submitted");
+            showToast("证据已提交到后台审核");
+        });
+
+        document.getElementById("roleStore").addEventListener("click", () => {
+            document.getElementById("roleStore").classList.add("active");
+            document.getElementById("rolePartner").classList.remove("active");
+            document.getElementById("roleTag").textContent = "门店端";
+            document.getElementById("profileTitle").textContent = "浦东便利店 A017";
+            document.getElementById("profileArea").textContent = "华东";
+            document.getElementById("profileDealer").textContent = "D-021";
+            detailData.profileCert.rows = [["主体类型", "门店"], ["认证结果", "已通过"], ["可参与活动", "套餐订购、陈列活动"]];
+            showToast("已切换为门店身份");
+            showDetail("profileCert");
+        });
+
+        document.getElementById("rolePartner").addEventListener("click", () => {
+            document.getElementById("rolePartner").classList.add("active");
+            document.getElementById("roleStore").classList.remove("active");
+            document.getElementById("roleTag").textContent = "二批商端";
+            document.getElementById("profileTitle").textContent = "苏州二批商 B203";
+            document.getElementById("profileArea").textContent = "华东 / 苏州";
+            document.getElementById("profileDealer").textContent = "D-044";
+            detailData.profileCert.rows = [["主体类型", "二批商"], ["认证结果", "已通过"], ["可参与活动", "二批商带动门店、采购返利"]];
+            showToast("已切换为二批商身份");
+            showDetail("profileCert");
+        });
+
+        const initialPage = new URLSearchParams(location.search).get("page") || "home";
+        showPage(document.getElementById(initialPage) ? initialPage : "home");
+    </script>
+</body>
+</html>

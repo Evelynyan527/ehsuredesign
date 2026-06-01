@@ -3,770 +3,1588 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>童心守护计划 - 关爱儿童公益单页</title>
+    <title>门店套餐活动奖励核销系统原型</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", sans-serif;
         }
 
         :root {
-            --primary: #e85d75;
-            --secondary: #ffb703;
-            --accent: #3a86ff;
-            --mint: #43aa8b;
-            --light: #fff8ef;
-            --soft: #f8edf1;
-            --dark: #283044;
-            --text: #4a4a4a;
-            --white: #ffffff;
+            --bg: #f5f7fb;
+            --panel: #ffffff;
+            --panel-soft: #f9fbff;
+            --text: #1f2937;
+            --muted: #64748b;
+            --line: #dbe3ef;
+            --blue: #246bfe;
+            --blue-dark: #164ec5;
+            --green: #0f9f6e;
+            --amber: #e79b18;
+            --red: #dc4c64;
+            --cyan: #12a4b6;
+            --ink: #111827;
+            --shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+            --radius: 8px;
         }
 
         body {
-            background-color: var(--light);
+            min-height: 100vh;
+            background: var(--bg);
             color: var(--text);
-            line-height: 1.7;
+            font-family: "PingFang SC", "Microsoft YaHei", "Segoe UI", Arial, sans-serif;
+            line-height: 1.5;
         }
 
-        header {
-            background: linear-gradient(120deg, var(--primary), #f77f8f 48%, var(--secondary));
-            color: var(--white);
-            padding: 1rem 0;
+        button,
+        input,
+        select,
+        textarea {
+            font: inherit;
+        }
+
+        button {
+            border: 0;
+            cursor: pointer;
+        }
+
+        .app {
+            min-height: 100vh;
+            display: grid;
+            grid-template-rows: 64px 1fr;
+        }
+
+        .topbar {
             position: sticky;
             top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 14px rgba(40, 48, 68, 0.14);
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .nav-container {
+            z-index: 20;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 0 24px;
+            border-bottom: 1px solid var(--line);
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(12px);
         }
 
-        .logo {
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 260px;
+        }
+
+        .brand-mark {
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            display: grid;
+            place-items: center;
+            color: #fff;
+            background: linear-gradient(135deg, var(--blue), var(--green));
+            box-shadow: 0 10px 24px rgba(36, 107, 254, 0.24);
+        }
+
+        .brand h1 {
+            font-size: 17px;
+            letter-spacing: 0;
+        }
+
+        .brand p {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .global-search {
+            flex: 1;
+            max-width: 560px;
+            position: relative;
+        }
+
+        .global-search i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted);
+        }
+
+        .global-search input {
+            width: 100%;
+            height: 40px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 0 14px 0 40px;
+            outline: 0;
+            background: #fff;
+        }
+
+        .top-actions {
             display: flex;
             align-items: center;
             gap: 10px;
-            font-size: 1.65rem;
-            font-weight: 800;
         }
 
-        .logo i {
-            font-size: 1.9rem;
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            min-height: 30px;
+            padding: 0 10px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            background: #fff;
+            color: var(--muted);
+            font-size: 12px;
+            white-space: nowrap;
         }
 
-        nav ul {
-            display: flex;
-            list-style: none;
+        .main {
+            display: grid;
+            grid-template-columns: 236px minmax(0, 1fr);
+            gap: 18px;
+            padding: 18px;
         }
 
-        nav ul li {
-            margin-left: 2rem;
+        .sidebar,
+        .panel,
+        .metric,
+        .activity-item,
+        .record-row,
+        .condition-chip {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
         }
 
-        nav ul li a {
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            padding: 0.5rem 0;
-            position: relative;
+        .sidebar {
+            align-self: start;
+            position: sticky;
+            top: 82px;
+            padding: 12px;
+            box-shadow: none;
         }
 
-        nav ul li a:hover {
-            color: #fff4c2;
+        .nav-section {
+            margin-bottom: 14px;
         }
 
-        nav ul li a::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: #fff4c2;
-            transition: width 0.3s ease;
+        .nav-label {
+            padding: 8px 10px;
+            color: var(--muted);
+            font-size: 12px;
         }
 
-        nav ul li a:hover::after {
+        .nav-btn {
             width: 100%;
-        }
-
-        .hero {
-            background:
-                linear-gradient(rgba(40, 48, 68, 0.55), rgba(232, 93, 117, 0.34)),
-                url("https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=2000&q=80");
-            background-size: cover;
-            background-position: center 34%;
-            min-height: 78vh;
+            min-height: 42px;
             display: flex;
             align-items: center;
-            text-align: center;
-            color: var(--white);
+            gap: 10px;
+            padding: 0 10px;
+            border-radius: 8px;
+            background: transparent;
+            color: var(--text);
+            text-align: left;
         }
 
-        .hero-content {
-            max-width: 850px;
-            margin: 0 auto;
-            padding: 6rem 0;
+        .nav-btn i {
+            width: 18px;
+            color: var(--muted);
         }
 
-        .hero h1 {
-            font-size: clamp(2.3rem, 5vw, 4rem);
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 8px rgba(40, 48, 68, 0.45);
+        .nav-btn:hover,
+        .nav-btn.active {
+            color: var(--blue);
+            background: #eef4ff;
+        }
+
+        .nav-btn.active i {
+            color: var(--blue);
+        }
+
+        .workspace {
+            min-width: 0;
+            display: grid;
+            gap: 18px;
+            align-content: start;
+        }
+
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: grid;
+            gap: 18px;
+        }
+
+        .page-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 18px;
+            padding: 20px;
+            background: var(--panel);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+        }
+
+        .page-kicker {
+            color: var(--blue);
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .page-head h2 {
+            font-size: 24px;
             letter-spacing: 0;
+            color: var(--ink);
         }
 
-        .hero p {
-            font-size: 1.25rem;
-            margin-bottom: 2rem;
+        .page-head p {
+            max-width: 780px;
+            margin-top: 8px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .head-actions,
+        .button-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
         }
 
         .btn {
+            min-height: 38px;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 0.55rem;
-            background-color: var(--accent);
-            color: var(--white);
-            min-height: 46px;
-            padding: 0.78rem 1.75rem;
-            border-radius: 999px;
-            text-decoration: none;
+            gap: 8px;
+            padding: 0 14px;
+            border-radius: 8px;
+            background: var(--blue);
+            color: #fff;
             font-weight: 700;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 6px 14px rgba(58, 134, 255, 0.24);
+            white-space: nowrap;
         }
 
         .btn:hover {
-            background-color: var(--primary);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 18px rgba(232, 93, 117, 0.28);
+            background: var(--blue-dark);
         }
 
-        section {
-            padding: 5rem 0;
+        .btn.secondary {
+            background: #fff;
+            color: var(--text);
+            border: 1px solid var(--line);
         }
 
-        .section-title {
-            text-align: center;
-            margin-bottom: 3rem;
+        .btn.secondary:hover {
+            background: var(--panel-soft);
         }
 
-        .section-title h2 {
-            font-size: clamp(2rem, 4vw, 2.7rem);
-            color: var(--dark);
-            margin-bottom: 1rem;
-            position: relative;
-            display: inline-block;
+        .btn.green {
+            background: var(--green);
+        }
+
+        .btn.amber {
+            background: var(--amber);
+        }
+
+        .btn.red {
+            background: var(--red);
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .metric {
+            padding: 16px;
+            box-shadow: none;
+        }
+
+        .metric .metric-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+
+        .metric strong {
+            display: block;
+            font-size: 24px;
+            line-height: 1.1;
+            color: var(--ink);
+        }
+
+        .metric span {
+            display: block;
+            margin-top: 5px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .panel {
+            padding: 18px;
+            box-shadow: none;
+        }
+
+        .panel-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+
+        .panel h3 {
+            color: var(--ink);
+            font-size: 17px;
             letter-spacing: 0;
         }
 
-        .section-title h2::after {
-            content: "";
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 86px;
-            height: 4px;
-            background: linear-gradient(to right, var(--primary), var(--secondary), var(--mint));
-            border-radius: 2px;
+        .panel-desc {
+            margin-top: 4px;
+            color: var(--muted);
+            font-size: 13px;
         }
 
-        .section-title p {
-            color: var(--text);
-            max-width: 720px;
-            margin: 0 auto;
-        }
-
-        .about-content {
+        .activity-list {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
+            gap: 10px;
+        }
+
+        .activity-item {
+            padding: 14px;
+            box-shadow: none;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 12px;
             align-items: center;
         }
 
-        .about-img {
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 14px 30px rgba(40, 48, 68, 0.13);
+        .activity-item.active {
+            border-color: rgba(36, 107, 254, 0.45);
+            background: #f4f8ff;
         }
 
-        .about-img img {
-            width: 100%;
-            min-height: 420px;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.5s ease;
-        }
-
-        .about-img:hover img {
-            transform: scale(1.04);
-        }
-
-        .about-text h3 {
-            font-size: 1.8rem;
-            margin-bottom: 1.4rem;
-            color: var(--primary);
-        }
-
-        .about-text p {
-            margin-bottom: 1.35rem;
-        }
-
-        .support-list {
-            display: grid;
-            gap: 0.8rem;
-            margin-bottom: 1.8rem;
-        }
-
-        .support-list span {
+        .activity-title {
             display: flex;
             align-items: center;
-            gap: 0.7rem;
-            font-weight: 700;
-            color: var(--dark);
+            gap: 8px;
+            font-weight: 800;
+            color: var(--ink);
         }
 
-        .support-list i {
-            color: var(--mint);
+        .activity-meta {
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 12px;
         }
 
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-            margin-top: 3rem;
-        }
-
-        .stat-item {
-            text-align: center;
-            padding: 2rem 1rem;
-            background-color: var(--white);
-            border-radius: 8px;
-            box-shadow: 0 6px 18px rgba(40, 48, 68, 0.08);
-            transition: transform 0.3s ease;
-        }
-
-        .stat-item:hover {
-            transform: translateY(-8px);
-        }
-
-        .stat-item i {
-            font-size: 2.35rem;
-            color: var(--accent);
-            margin-bottom: 1rem;
-        }
-
-        .stat-item:nth-child(2) i {
-            color: var(--primary);
-        }
-
-        .stat-item:nth-child(3) i {
-            color: var(--secondary);
-        }
-
-        .stat-item:nth-child(4) i {
-            color: var(--mint);
-        }
-
-        .stat-item h3 {
-            font-size: 2.35rem;
-            color: var(--dark);
-            margin-bottom: 0.5rem;
-        }
-
-        .programs {
-            background-color: var(--white);
-        }
-
-        .programs-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-        }
-
-        .program-card {
-            background-color: var(--soft);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 6px 18px rgba(40, 48, 68, 0.08);
-            transition: transform 0.3s ease;
-        }
-
-        .program-card:hover {
-            transform: translateY(-8px);
-        }
-
-        .program-img {
-            height: 220px;
-            overflow: hidden;
-        }
-
-        .program-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .program-card:hover .program-img img {
-            transform: scale(1.08);
-        }
-
-        .program-content {
-            padding: 1.5rem;
-        }
-
-        .program-content h3 {
-            font-size: 1.45rem;
-            margin-bottom: 0.85rem;
-            color: var(--dark);
-        }
-
-        .program-content p {
-            margin-bottom: 1.4rem;
-        }
-
-        .cta {
-            background:
-                linear-gradient(120deg, rgba(232, 93, 117, 0.93), rgba(58, 134, 255, 0.9)),
-                url("https://images.unsplash.com/photo-1596464716127-f2a82984de30?auto=format&fit=crop&w=1800&q=80");
-            background-size: cover;
-            background-position: center;
-            color: var(--white);
-            text-align: center;
-            padding: 5rem 0;
-        }
-
-        .cta h2 {
-            font-size: clamp(2rem, 4vw, 2.7rem);
-            margin-bottom: 1.4rem;
-        }
-
-        .cta p {
-            font-size: 1.15rem;
-            margin-bottom: 2rem;
-            max-width: 760px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta .btn {
-            background-color: var(--white);
-            color: var(--primary);
-            box-shadow: 0 8px 20px rgba(40, 48, 68, 0.18);
-        }
-
-        .cta .btn:hover {
-            background-color: var(--secondary);
-            color: var(--dark);
-        }
-
-        footer {
-            background-color: var(--dark);
-            color: var(--white);
-            padding: 3rem 0 1rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-column h3 {
-            font-size: 1.25rem;
-            margin-bottom: 1.4rem;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .footer-column h3::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 42px;
-            height: 2px;
-            background-color: var(--secondary);
-        }
-
-        .footer-column p {
-            margin-bottom: 0.9rem;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 0.75rem;
-        }
-
-        .footer-links li a {
-            color: #f7e9ec;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .footer-links li a:hover {
-            color: var(--secondary);
-            padding-left: 5px;
-        }
-
-        .social-links {
+        .tag-row {
             display: flex;
-            gap: 0.9rem;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 10px;
         }
 
-        .social-links a {
+        .tag {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
+            gap: 5px;
+            min-height: 24px;
+            padding: 0 8px;
+            border-radius: 999px;
+            background: #f1f5f9;
+            color: #475569;
+            font-size: 12px;
+        }
+
+        .tag.ok {
+            background: #e8f8f1;
+            color: #087953;
+        }
+
+        .tag.warn {
+            background: #fff4df;
+            color: #97610b;
+        }
+
+        .tag.info {
+            background: #eaf4ff;
+            color: #1959c6;
+        }
+
+        .tag.danger {
+            background: #ffecef;
+            color: #b4233a;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .field {
+            display: grid;
+            gap: 7px;
+        }
+
+        .field label {
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .field input,
+        .field select,
+        .field textarea {
+            width: 100%;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            min-height: 38px;
+            padding: 8px 10px;
+            color: var(--text);
+            background: #fff;
+            outline: 0;
+        }
+
+        .field textarea {
+            min-height: 84px;
+            resize: vertical;
+        }
+
+        .condition-builder {
+            display: grid;
+            gap: 10px;
+        }
+
+        .condition-chip {
+            display: grid;
+            grid-template-columns: 34px minmax(0, 1fr) auto;
+            gap: 10px;
+            align-items: center;
+            padding: 12px;
+            box-shadow: none;
+        }
+
+        .chip-icon {
+            width: 34px;
+            height: 34px;
+            display: grid;
+            place-items: center;
+            border-radius: 8px;
+            color: #fff;
+            background: var(--cyan);
+        }
+
+        .condition-chip strong {
+            color: var(--ink);
+            font-size: 14px;
+        }
+
+        .condition-chip p {
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 2px;
+        }
+
+        .toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .switch {
             width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
+            height: 22px;
+            border-radius: 999px;
+            background: var(--blue);
+            position: relative;
+        }
+
+        .switch::after {
+            content: "";
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            top: 3px;
+            right: 3px;
             border-radius: 50%;
-            color: var(--white);
-            text-decoration: none;
-            transition: all 0.3s ease;
+            background: #fff;
         }
 
-        .social-links a:hover {
-            background-color: var(--secondary);
-            color: var(--dark);
-            transform: translateY(-4px);
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
         }
 
-        .copyright {
+        .table th,
+        .table td {
+            border-bottom: 1px solid var(--line);
+            padding: 12px 10px;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        .table th {
+            color: var(--muted);
+            font-weight: 800;
+            background: var(--panel-soft);
+        }
+
+        .table tr:last-child td {
+            border-bottom: 0;
+        }
+
+        .ai-lab {
+            display: grid;
+            grid-template-columns: 300px minmax(0, 1fr);
+            gap: 14px;
+        }
+
+        .upload-zone {
+            min-height: 230px;
+            border: 1px dashed #9db2d3;
+            border-radius: 8px;
+            display: grid;
+            place-items: center;
             text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 20px;
+            background: #f8fbff;
         }
 
-        .mobile-menu {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
+        .upload-zone i {
+            font-size: 36px;
+            color: var(--blue);
+            margin-bottom: 12px;
         }
 
-        .counter {
-            transition: all 0.5s ease;
+        .upload-zone strong {
+            display: block;
+            color: var(--ink);
         }
 
-        @media (max-width: 992px) {
-            .about-content {
+        .upload-zone p {
+            margin-top: 6px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .evidence-stack {
+            display: grid;
+            gap: 10px;
+        }
+
+        .evidence-photo {
+            min-height: 120px;
+            border-radius: 8px;
+            background:
+                linear-gradient(135deg, rgba(36, 107, 254, 0.18), rgba(15, 159, 110, 0.12)),
+                repeating-linear-gradient(0deg, #ffffff 0 18px, #eef3fb 18px 20px);
+            border: 1px solid var(--line);
+            padding: 14px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .shelf-visual {
+            min-height: 120px;
+            border-radius: 8px;
+            border: 1px solid var(--line);
+            background: #f8fbff;
+            padding: 14px;
+            display: grid;
+            grid-template-rows: repeat(3, 1fr);
+            gap: 9px;
+        }
+
+        .shelf-row {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 7px;
+            align-items: end;
+            border-bottom: 4px solid #cbd5e1;
+            padding-bottom: 4px;
+        }
+
+        .pack {
+            height: 22px;
+            border-radius: 4px 4px 2px 2px;
+            background: var(--blue);
+        }
+
+        .pack.green {
+            background: var(--green);
+        }
+
+        .pack.amber {
+            background: var(--amber);
+        }
+
+        .pack.red {
+            background: var(--red);
+        }
+
+        .recognition {
+            display: grid;
+            gap: 10px;
+        }
+
+        .record-row {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 10px;
+            padding: 12px;
+            box-shadow: none;
+        }
+
+        .record-row strong {
+            color: var(--ink);
+            font-size: 14px;
+        }
+
+        .record-row p {
+            margin-top: 3px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .progress {
+            height: 8px;
+            border-radius: 999px;
+            overflow: hidden;
+            background: #e5edf7;
+            margin-top: 8px;
+        }
+
+        .progress span {
+            display: block;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, var(--blue), var(--green));
+        }
+
+        .stat-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .tab-btn {
+            min-height: 34px;
+            padding: 0 12px;
+            border-radius: 999px;
+            border: 1px solid var(--line);
+            background: #fff;
+            color: var(--muted);
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .tab-btn.active {
+            color: #fff;
+            border-color: var(--blue);
+            background: var(--blue);
+        }
+
+        .chart {
+            height: 230px;
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 12px;
+            align-items: end;
+            padding: 14px 4px 2px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .bar {
+            display: grid;
+            align-items: end;
+            gap: 8px;
+            height: 100%;
+            color: var(--muted);
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .bar span {
+            display: block;
+            min-height: 24px;
+            border-radius: 8px 8px 0 0;
+            background: linear-gradient(180deg, var(--blue), var(--cyan));
+        }
+
+        .toast {
+            position: fixed;
+            right: 26px;
+            bottom: 26px;
+            z-index: 50;
+            max-width: 360px;
+            padding: 12px 14px;
+            border-radius: 8px;
+            color: #fff;
+            background: #111827;
+            box-shadow: 0 16px 40px rgba(15, 23, 42, 0.22);
+            opacity: 0;
+            transform: translateY(12px);
+            pointer-events: none;
+            transition: 0.22s ease;
+            font-size: 13px;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 900px) {
+            .topbar {
+                align-items: flex-start;
+                height: auto;
+                padding: 12px;
+                flex-wrap: wrap;
+            }
+
+            .brand {
+                min-width: 0;
+            }
+
+            .global-search {
+                order: 3;
+                max-width: none;
+                flex-basis: 100%;
+            }
+
+            .main {
+                grid-template-columns: 1fr;
+                padding: 12px;
+            }
+
+            .sidebar {
+                position: static;
+            }
+
+            .nav-section {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 6px;
+            }
+
+            .nav-label {
+                grid-column: 1 / -1;
+            }
+
+            .grid-4,
+            .grid-3,
+            .grid-2,
+            .form-grid,
+            .ai-lab {
                 grid-template-columns: 1fr;
             }
 
-            .programs-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .footer-content {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            header {
-                padding: 0.85rem 0;
-            }
-
-            .logo {
-                font-size: 1.35rem;
-            }
-
-            .hero {
-                min-height: 70vh;
-            }
-
-            .hero p {
-                font-size: 1.08rem;
-            }
-
-            nav ul {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background-color: var(--primary);
-                flex-direction: column;
-                padding: 1rem 0;
-                text-align: center;
-                box-shadow: 0 5px 12px rgba(40, 48, 68, 0.14);
-            }
-
-            nav ul.active {
-                display: flex;
-            }
-
-            nav ul li {
-                margin: 0;
-                padding: 0.8rem 0;
-            }
-
-            .mobile-menu {
-                display: block;
-            }
-
-            section {
-                padding: 4rem 0;
-            }
-
-            .programs-grid,
-            .footer-content,
-            .stats {
-                grid-template-columns: 1fr;
-            }
-
-            .about-img img {
-                min-height: 300px;
+            .page-head {
+                display: grid;
             }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container nav-container">
-            <div class="logo">
-                <i class="fas fa-hands-holding-child"></i>
-                <span>童心守护计划</span>
-            </div>
-            <nav>
-                <div class="mobile-menu" aria-label="打开导航">
-                    <i class="fas fa-bars"></i>
+    <div class="app">
+        <header class="topbar">
+            <div class="brand">
+                <div class="brand-mark"><i class="fa-solid fa-store"></i></div>
+                <div>
+                    <h1>门店活动奖励核销系统</h1>
+                    <p>套餐订购、陈列稽核、AI识别、奖励发放</p>
                 </div>
-                <ul>
-                    <li><a href="#home">首页</a></li>
-                    <li><a href="#about">关于我们</a></li>
-                    <li><a href="#programs">关爱行动</a></li>
-                    <li><a href="#get-involved">参与守护</a></li>
-                    <li><a href="#contact">联系我们</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+            </div>
+            <label class="global-search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input id="globalSearch" type="search" placeholder="搜索门店、二批商、活动、核销单号">
+            </label>
+            <div class="top-actions">
+                <span class="pill"><i class="fa-solid fa-robot"></i>AI识别在线</span>
+                <span class="pill"><i class="fa-solid fa-location-dot"></i>华东大区</span>
+            </div>
+        </header>
 
-    <section class="hero" id="home">
-        <div class="container hero-content">
-            <h1>让每个孩子被看见、被倾听、被温柔守护</h1>
-            <p>我们连接家庭、学校、社区与志愿者，为儿童提供陪伴、教育支持、心理关怀和安全保护。</p>
-            <a href="#get-involved" class="btn"><i class="fas fa-heart"></i>加入守护</a>
-        </div>
-    </section>
+        <main class="main">
+            <aside class="sidebar">
+                <div class="nav-section">
+                    <div class="nav-label">后台系统</div>
+                    <button class="nav-btn active" data-view="dashboard"><i class="fa-solid fa-chart-line"></i><span>经营看板</span></button>
+                    <button class="nav-btn" data-view="activity"><i class="fa-solid fa-sliders"></i><span>活动配置</span></button>
+                    <button class="nav-btn" data-view="audit"><i class="fa-solid fa-camera-retro"></i><span>证据审核</span></button>
+                    <button class="nav-btn" data-view="settlement"><i class="fa-solid fa-coins"></i><span>奖励核销</span></button>
+                    <button class="nav-btn" data-view="partner"><i class="fa-solid fa-warehouse"></i><span>二批商参与</span></button>
+                    <button class="nav-btn" data-view="stats"><i class="fa-solid fa-table-cells-large"></i><span>核销统计</span></button>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-label">小程序端</div>
+                    <button class="nav-btn" data-mini="home"><i class="fa-solid fa-mobile-screen-button"></i><span>活动首页</span></button>
+                    <button class="nav-btn" data-mini="upload"><i class="fa-solid fa-cloud-arrow-up"></i><span>上传证据</span></button>
+                    <button class="nav-btn" data-mini="reward"><i class="fa-solid fa-gift"></i><span>奖励进度</span></button>
+                    <button class="nav-btn" data-mini="profile"><i class="fa-solid fa-id-card"></i><span>主体资料</span></button>
+                </div>
+            </aside>
 
-    <section id="about">
-        <div class="container">
-            <div class="section-title">
-                <h2>关于童心守护计划</h2>
-                <p>我们相信，儿童的成长不只需要物质帮助，更需要稳定的陪伴、被尊重的表达和安全的生活环境。</p>
-            </div>
-            <div class="about-content">
-                <div class="about-img">
-                    <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1800&q=80" alt="志愿者陪伴孩子学习与游戏">
-                </div>
-                <div class="about-text">
-                    <h3>用持续的陪伴托住孩子的成长</h3>
-                    <p>童心守护计划关注困境儿童、留守儿童和需要额外支持的家庭，通过社区服务站、学校协作和志愿者网络，为孩子建立更稳定的支持系统。</p>
-                    <p>我们把关爱落到日常：一次课后辅导、一通倾听电话、一场安全教育、一份成长档案，都可能成为孩子继续向前的力量。</p>
-                    <div class="support-list">
-                        <span><i class="fas fa-check-circle"></i>儿童心理支持与情绪陪伴</span>
-                        <span><i class="fas fa-check-circle"></i>学习资源、阅读空间与兴趣课程</span>
-                        <span><i class="fas fa-check-circle"></i>安全教育、家庭沟通与社区联动</span>
+            <section class="workspace">
+                <div id="dashboard" class="screen active">
+                    <div class="page-head">
+                        <div>
+                            <div class="page-kicker">SYSTEM OVERVIEW</div>
+                            <h2>从人工收单到自动判定奖励</h2>
+                            <p>门店或二批商在小程序上传送货单、采购单和陈列照片，AI识别SKU与货架陈列，规则引擎判断是否满足套餐活动或陈列活动，系统自动生成奖励和核销统计。</p>
+                        </div>
+                        <div class="head-actions">
+                            <button class="btn" data-view="activity"><i class="fa-solid fa-plus"></i>新建活动</button>
+                            <button class="btn secondary" data-view="audit"><i class="fa-solid fa-wand-magic-sparkles"></i>演示AI识别</button>
+                        </div>
                     </div>
-                    <a href="#programs" class="btn"><i class="fas fa-arrow-down"></i>了解行动</a>
-                </div>
-            </div>
-            <div class="stats">
-                <div class="stat-item">
-                    <i class="fas fa-child-reaching"></i>
-                    <h3 class="counter" data-target="12800">0</h3>
-                    <p>名儿童获得支持</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-user-group"></i>
-                    <h3 class="counter" data-target="3600">0</h3>
-                    <p>位志愿者参与</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-book-open-reader"></i>
-                    <h3 class="counter" data-target="520">0</h3>
-                    <p>场成长课程</p>
-                </div>
-                <div class="stat-item">
-                    <i class="fas fa-house-chimney-heart"></i>
-                    <h3 class="counter" data-target="86">0</h3>
-                    <p>个社区服务点</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <section class="programs" id="programs">
-        <div class="container">
-            <div class="section-title">
-                <h2>我们的关爱行动</h2>
-                <p>从学习、心理、安全到家庭支持，我们用清晰可执行的项目，让善意真正抵达孩子身边。</p>
-            </div>
-            <div class="programs-grid">
-                <div class="program-card">
-                    <div class="program-img">
-                        <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1600&q=80" alt="儿童阅读与学习支持">
+                    <div class="grid-4">
+                        <div class="metric">
+                            <div class="metric-icon" style="background:var(--blue)"><i class="fa-solid fa-store"></i></div>
+                            <strong>1,286</strong>
+                            <span>参与门店，较上周 +18%</span>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-icon" style="background:var(--green)"><i class="fa-solid fa-check-double"></i></div>
+                            <strong>87.4%</strong>
+                            <span>AI自动通过率</span>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-icon" style="background:var(--amber)"><i class="fa-solid fa-coins"></i></div>
+                            <strong>¥428万</strong>
+                            <span>待发放货补与奖励</span>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-icon" style="background:var(--red)"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                            <strong>43</strong>
+                            <span>需人工复核单据</span>
+                        </div>
                     </div>
-                    <div class="program-content">
-                        <h3>成长书桌</h3>
-                        <p>为孩子提供课后辅导、阅读陪伴和学习用品支持，让知识成为更公平的起点。</p>
-                        <a href="#get-involved" class="btn"><i class="fas fa-book"></i>捐赠图书</a>
-                    </div>
-                </div>
-                <div class="program-card">
-                    <div class="program-img">
-                        <img src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=1600&q=80" alt="孩子们在户外活动中微笑">
-                    </div>
-                    <div class="program-content">
-                        <h3>安心陪伴</h3>
-                        <p>组织志愿者定期陪伴和专业心理支持，帮助孩子表达情绪、建立自信。</p>
-                        <a href="#get-involved" class="btn"><i class="fas fa-hand-holding-heart"></i>成为志愿者</a>
-                    </div>
-                </div>
-                <div class="program-card">
-                    <div class="program-img">
-                        <img src="https://images.unsplash.com/photo-1471286174890-9c112ffca5b4?auto=format&fit=crop&w=1600&q=80" alt="儿童与家人在安全友好的环境中互动">
-                    </div>
-                    <div class="program-content">
-                        <h3>安全小课堂</h3>
-                        <p>开展防走失、防欺凌、网络安全和家庭沟通课程，为孩子筑起日常保护网。</p>
-                        <a href="#get-involved" class="btn"><i class="fas fa-shield-heart"></i>支持课程</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <section class="cta" id="get-involved">
-        <div class="container">
-            <h2>把一次关心，变成孩子长期的底气</h2>
-            <p>你可以用志愿服务、图书捐赠、课程支持或社区共建参与进来。每一份稳定的善意，都会让孩子更安心地长大。</p>
-            <a href="#contact" class="btn"><i class="fas fa-paper-plane"></i>联系加入</a>
-        </div>
-    </section>
-
-    <footer id="contact">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>童心守护计划</h3>
-                    <p>用专业、耐心和持续行动，为儿童创造更安全、更有爱、更有希望的成长环境。</p>
-                    <div class="social-links">
-                        <a href="#" aria-label="微信"><i class="fab fa-weixin"></i></a>
-                        <a href="#" aria-label="微博"><i class="fab fa-weibo"></i></a>
-                        <a href="#" aria-label="QQ"><i class="fab fa-qq"></i></a>
-                        <a href="#" aria-label="邮件"><i class="fas fa-envelope"></i></a>
+                    <div class="grid-2">
+                        <div class="panel">
+                            <div class="panel-head">
+                                <div>
+                                    <h3>待处理任务</h3>
+                                    <p class="panel-desc">系统自动分派给区域、经销商和财务。</p>
+                                </div>
+                            </div>
+                            <div class="activity-list">
+                                <div class="record-row">
+                                    <div>
+                                        <strong>上海浦东便利店 A017</strong>
+                                        <p>套餐满足，陈列照片缺少价签，建议人工复核。</p>
+                                    </div>
+                                    <button class="btn secondary" data-view="audit">处理</button>
+                                </div>
+                                <div class="record-row">
+                                    <div>
+                                        <strong>苏州二批商 B203</strong>
+                                        <p>二批商参与活动，需补充下游门店签收证明。</p>
+                                    </div>
+                                    <button class="btn secondary" data-view="partner">查看</button>
+                                </div>
+                                <div class="record-row">
+                                    <div>
+                                        <strong>华南 5 月货补批次</strong>
+                                        <p>138 笔奖励已通过，等待财务核销确认。</p>
+                                    </div>
+                                    <button class="btn secondary" data-view="settlement">核销</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel">
+                            <div class="panel-head">
+                                <div>
+                                    <h3>活动效果</h3>
+                                    <p class="panel-desc">订购套餐与陈列活动的周趋势。</p>
+                                </div>
+                                <button class="btn secondary" data-view="stats">明细</button>
+                            </div>
+                            <div class="chart">
+                                <div class="bar"><span style="height:44%"></span><em>周一</em></div>
+                                <div class="bar"><span style="height:58%"></span><em>周二</em></div>
+                                <div class="bar"><span style="height:52%"></span><em>周三</em></div>
+                                <div class="bar"><span style="height:76%"></span><em>周四</em></div>
+                                <div class="bar"><span style="height:68%"></span><em>周五</em></div>
+                                <div class="bar"><span style="height:86%"></span><em>周六</em></div>
+                                <div class="bar"><span style="height:72%"></span><em>周日</em></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="footer-column">
-                    <h3>快速导航</h3>
-                    <ul class="footer-links">
-                        <li><a href="#home">首页</a></li>
-                        <li><a href="#about">关于我们</a></li>
-                        <li><a href="#programs">关爱行动</a></li>
-                        <li><a href="#get-involved">参与守护</a></li>
-                        <li><a href="#contact">联系我们</a></li>
-                    </ul>
+
+                <div id="activity" class="screen">
+                    <div class="page-head">
+                        <div>
+                            <div class="page-kicker">CAMPAIGN CONFIG</div>
+                            <h2>活动配置中心</h2>
+                            <p>以“条件组件 + 奖励组件 + 审核组件”的方式配置活动。当前支持门店订购套餐活动、门店陈列活动，后续可扩展铺货、扫码、销量达成、节日主题等条件。</p>
+                        </div>
+                        <div class="head-actions">
+                            <button class="btn" id="saveActivity"><i class="fa-solid fa-floppy-disk"></i>保存并发布</button>
+                            <button class="btn secondary" data-mini="home"><i class="fa-solid fa-eye"></i>小程序预览</button>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="panel">
+                            <div class="panel-head">
+                                <div>
+                                    <h3>活动模板</h3>
+                                    <p class="panel-desc">点击模板会刷新右侧配置与小程序活动页。</p>
+                                </div>
+                            </div>
+                            <div class="activity-list">
+                                <button class="activity-item active" data-activity="package">
+                                    <div>
+                                        <div class="activity-title"><i class="fa-solid fa-boxes-stacked"></i>门店订购套餐活动</div>
+                                        <div class="activity-meta">订购 SKU 品类满足套餐要求，即自动生成奖励。</div>
+                                        <div class="tag-row">
+                                            <span class="tag info">送货单识别</span>
+                                            <span class="tag ok">套餐规则</span>
+                                            <span class="tag warn">经销商货补</span>
+                                        </div>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                                <button class="activity-item" data-activity="display">
+                                    <div>
+                                        <div class="activity-title"><i class="fa-solid fa-layer-group"></i>门店陈列活动</div>
+                                        <div class="activity-meta">识别货架照片，判断陈列面数、位置、价签与竞品遮挡。</div>
+                                        <div class="tag-row">
+                                            <span class="tag info">货架照片</span>
+                                            <span class="tag ok">陈列评分</span>
+                                            <span class="tag warn">人工抽检</span>
+                                        </div>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                                <button class="activity-item" data-activity="custom">
+                                    <div>
+                                        <div class="activity-title"><i class="fa-solid fa-puzzle-piece"></i>未来扩展活动</div>
+                                        <div class="activity-meta">可配置扫码、销量、拜访、库存、节假日组合条件。</div>
+                                        <div class="tag-row">
+                                            <span class="tag info">条件编排</span>
+                                            <span class="tag ok">API扩展</span>
+                                        </div>
+                                    </div>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="panel">
+                            <div class="panel-head">
+                                <div>
+                                    <h3 id="activityTitle">门店订购套餐活动</h3>
+                                    <p class="panel-desc" id="activityDesc">适用于门店向经销商或二批商订购指定套餐，并上传送货单、陈列照片后自动判奖。</p>
+                                </div>
+                                <span class="tag ok">启用中</span>
+                            </div>
+                            <div class="form-grid">
+                                <div class="field">
+                                    <label>活动名称</label>
+                                    <input id="campaignName" value="夏季核心 SKU 套餐订购奖励">
+                                </div>
+                                <div class="field">
+                                    <label>参与主体</label>
+                                    <select id="campaignRole">
+                                        <option>门店 + 二批商</option>
+                                        <option>仅门店</option>
+                                        <option>仅二批商</option>
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <label>适用区域</label>
+                                    <select>
+                                        <option>全国</option>
+                                        <option>华东大区</option>
+                                        <option>华南大区</option>
+                                        <option>经销商自定义区域</option>
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <label>奖励方式</label>
+                                    <select>
+                                        <option>门店现金券 + 经销商货补</option>
+                                        <option>门店现金券</option>
+                                        <option>经销商货补</option>
+                                        <option>二批商返利</option>
+                                    </select>
+                                </div>
+                                <div class="field" style="grid-column:1 / -1">
+                                    <label>规则说明</label>
+                                    <textarea id="campaignRule">识别送货单中的 SKU 与数量，满足 A/B/C 三个品类各不少于 1 件，且货架陈列照片评分达到 80 分，即发放 120 元门店奖励，并进入经销商货补池。</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <div class="panel-head">
+                            <div>
+                                <h3>可扩展条件组件</h3>
+                                <p class="panel-desc">每个活动由多个条件组成，满足任意或全部条件后触发奖励。</p>
+                            </div>
+                            <button class="btn secondary" id="addCondition"><i class="fa-solid fa-plus"></i>添加条件</button>
+                        </div>
+                        <div class="condition-builder" id="conditionList">
+                            <div class="condition-chip">
+                                <span class="chip-icon"><i class="fa-solid fa-file-invoice"></i></span>
+                                <div>
+                                    <strong>单据识别条件</strong>
+                                    <p>识别送货单或采购单，提取供货主体、日期、SKU、数量、金额。</p>
+                                </div>
+                                <span class="toggle"><span class="switch"></span>已启用</span>
+                            </div>
+                            <div class="condition-chip">
+                                <span class="chip-icon" style="background:var(--green)"><i class="fa-solid fa-box"></i></span>
+                                <div>
+                                    <strong>套餐SKU条件</strong>
+                                    <p>SKU-A ≥ 1 件，SKU-B ≥ 1 件，SKU-C ≥ 1 件，允许同系列替代品。</p>
+                                </div>
+                                <span class="toggle"><span class="switch"></span>已启用</span>
+                            </div>
+                            <div class="condition-chip">
+                                <span class="chip-icon" style="background:var(--amber)"><i class="fa-solid fa-border-all"></i></span>
+                                <div>
+                                    <strong>陈列照片条件</strong>
+                                    <p>识别货架面数、价签、品牌连续陈列与遮挡情况，综合评分 ≥ 80。</p>
+                                </div>
+                                <span class="toggle"><span class="switch"></span>已启用</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="footer-column">
-                    <h3>支持方式</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">志愿陪伴</a></li>
-                        <li><a href="#">图书与文具捐赠</a></li>
-                        <li><a href="#">成长课程共建</a></li>
-                        <li><a href="#">儿童安全教育</a></li>
-                        <li><a href="#">社区服务站合作</a></li>
-                    </ul>
+
+                <div id="audit" class="screen">
+                    <div class="page-head">
+                        <div>
+                            <div class="page-kicker">AI EVIDENCE REVIEW</div>
+                            <h2>证据审核与自动判奖</h2>
+                            <p>门店拍送货单，系统识别 SKU 套餐情况；同时识别货架陈列照片，满足活动条件后直接进入奖励发放。低置信度或异常证据进入人工复核。</p>
+                        </div>
+                        <div class="head-actions">
+                            <button class="btn" id="runAI"><i class="fa-solid fa-wand-magic-sparkles"></i>运行AI识别</button>
+                            <button class="btn secondary" data-mini="upload"><i class="fa-solid fa-mobile-screen"></i>小程序上传</button>
+                        </div>
+                    </div>
+
+                    <div class="ai-lab">
+                        <div class="panel">
+                            <div class="panel-head">
+                                <div>
+                                    <h3>门店上传证据</h3>
+                                    <p class="panel-desc">模拟真实小程序上传后的材料包。</p>
+                                </div>
+                            </div>
+                            <div class="evidence-stack">
+                                <div class="upload-zone">
+                                    <div>
+                                        <i class="fa-solid fa-file-arrow-up"></i>
+                                        <strong>送货单照片</strong>
+                                        <p>上海浦东便利店 A017，来自经销商 D-021</p>
+                                    </div>
+                                </div>
+                                <div class="evidence-photo">
+                                    <span>单据抬头：D-021 经销商</span>
+                                    <span>金额：¥3,820</span>
+                                </div>
+                                <div class="shelf-visual" aria-label="货架陈列示意">
+                                    <div class="shelf-row">
+                                        <span class="pack"></span><span class="pack green"></span><span class="pack amber"></span><span class="pack"></span><span class="pack green"></span><span class="pack red"></span>
+                                    </div>
+                                    <div class="shelf-row">
+                                        <span class="pack green"></span><span class="pack green"></span><span class="pack"></span><span class="pack amber"></span><span class="pack"></span><span class="pack"></span>
+                                    </div>
+                                    <div class="shelf-row">
+                                        <span class="pack amber"></span><span class="pack"></span><span class="pack green"></span><span class="pack red"></span><span class="pack amber"></span><span class="pack"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel">
+                            <div class="panel-head">
+                                <div>
+                                    <h3>AI识别结果</h3>
+                                    <p class="panel-desc" id="aiSummary">等待识别。点击“运行AI识别”后展示套餐满足、陈列评分和奖励建议。</p>
+                                </div>
+                                <span class="tag warn" id="aiStatus">待识别</span>
+                            </div>
+                            <div class="recognition" id="aiResult">
+                                <div class="record-row">
+                                    <div>
+                                        <strong>证据包 A017-20260601</strong>
+                                        <p>包含送货单 1 张、货架陈列照片 3 张。</p>
+                                    </div>
+                                    <span class="tag info">已接收</span>
+                                </div>
+                                <div class="record-row">
+                                    <div>
+                                        <strong>系统动作</strong>
+                                        <p>识别后会自动匹配活动、判断区域归属，并生成奖励流转单。</p>
+                                    </div>
+                                    <span class="tag warn">等待</span>
+                                </div>
+                            </div>
+                            <div class="button-row" style="margin-top:14px">
+                                <button class="btn green" id="approveReward"><i class="fa-solid fa-circle-check"></i>通过并发奖</button>
+                                <button class="btn secondary"><i class="fa-solid fa-user-shield"></i>转人工复核</button>
+                                <button class="btn secondary" data-view="settlement"><i class="fa-solid fa-arrow-right"></i>去核销</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="footer-column">
-                    <h3>联系我们</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> 上海市静安区暖阳公益中心</p>
-                    <p><i class="fas fa-phone"></i> 400-880-0616</p>
-                    <p><i class="fas fa-envelope"></i> hello@childcare.org.cn</p>
+
+                <div id="settlement" class="screen">
+                    <div class="page-head">
+                        <div>
+                            <div class="page-kicker">REWARD SETTLEMENT</div>
+                            <h2>奖励发放与核销</h2>
+                            <p>系统自动把通过的活动记录归集到奖励池，按门店、经销商、二批商和区域维度生成核销单，支持财务确认、发放状态跟踪和异常追溯。</p>
+                        </div>
+                        <div class="head-actions">
+                            <button class="btn green" id="batchSettle"><i class="fa-solid fa-money-bill-transfer"></i>批量核销</button>
+                            <button class="btn secondary" data-view="stats"><i class="fa-solid fa-chart-pie"></i>统计报表</button>
+                        </div>
+                    </div>
+
+                    <div class="grid-3">
+                        <div class="metric">
+                            <div class="metric-icon" style="background:var(--green)"><i class="fa-solid fa-circle-check"></i></div>
+                            <strong>946</strong>
+                            <span>本月已通过奖励单</span>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-icon" style="background:var(--amber)"><i class="fa-solid fa-hourglass-half"></i></div>
+                            <strong>168</strong>
+                            <span>待财务核销</span>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-icon" style="background:var(--cyan)"><i class="fa-solid fa-receipt"></i></div>
+                            <strong>¥82.6万</strong>
+                            <span>经销商货补池</span>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <div class="panel-head">
+                            <div>
+                                <h3>核销单列表</h3>
+                                <p class="panel-desc">可点击门店记录跳转到上传证据，也可点击活动跳转到配置。</p>
+                            </div>
+                        </div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>核销单</th>
+                                    <th>主体</th>
+                                    <th>活动</th>
+                                    <th>奖励</th>
+                                    <th>归属</th>
+                                    <th>状态</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>HX-202606-0187</td>
+                                    <td>浦东便利店 A017</td>
+                                    <td><button class="tab-btn" data-view="activity">套餐订购</button></td>
+                                    <td>¥120 门店奖励 + ¥80 货补</td>
+                                    <td>华东 / D-021</td>
+                                    <td><span class="tag ok">已通过</span></td>
+                                    <td><button class="btn secondary" data-mini="reward">查看</button></td>
+                                </tr>
+                                <tr>
+                                    <td>HX-202606-0188</td>
+                                    <td>苏州二批商 B203</td>
+                                    <td><button class="tab-btn" data-view="partner">二批商活动</button></td>
+                                    <td>¥650 二批商返利</td>
+                                    <td>华东 / D-044</td>
+                                    <td><span class="tag warn">待核销</span></td>
+                                    <td><button class="btn secondary" data-view="partner">处理</button></td>
+                                </tr>
+                                <tr>
+                                    <td>HX-202606-0189</td>
+                                    <td>杭州社区店 H091</td>
+                                    <td><button class="tab-btn" data-view="activity">陈列活动</button></td>
+                                    <td>¥80 陈列奖励</td>
+                                    <td>华东 / D-008</td>
+                                    <td><span class="tag danger">待复核</span></td>
+                                    <td><button class="btn secondary" data-view="audit">审核</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
-            <div class="copyright">
-                <p>&copy; 2026 童心守护计划. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+
+                <div id="partner" class="screen">
+                    <div class="page-head">
+                        <div>
+                            <div class="page-kicker">SECOND-TIER PARTNER</div>
+                            <h2>二批商参与管理</h2>
+                            <p>二批商可作为活动主体参与订购、铺货或下游门店激励。系统记录二批商采购证明、出货流向、门店签收和返利核销，避免人工归属混乱。</p>
+                        </div>
+                        <div class="head-actions">
+                            <button class="btn" data-mini="profile"><i class="fa-solid fa-user-plus"></i>小程序入驻</button>
+                            <button class="btn secondary" data-view="activity"><i class="fa-solid fa-sliders"></i>配置二批商规则</button>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="panel">
+                            <div class="panel-head">
+                                <div>
+                                    <h3>二批商表现</h3>
+                                    <p class="panel-desc">按采购、覆盖门店、上传质量和返利金额评估。</p>
+                                </div>
+                                <button class="btn secondary" data-view="stats">报表</button>
+                            </div>
+                            <div class="activity-list">
+                                <div class="record-row">
+                                    <div>
+                                        <strong>采购达成率</strong>
+                                        <p>核心SKU采购 4,280 件，目标完成 91%。</p>
+                                        <div class="progress"><span style="width:91%"></span></div>
+                                    </div>
+                                    <span class="tag ok">91%</span>
+                                </div>
+                                <div class="record-row">
+                                    <div>
+                                        <strong>下游覆盖</strong>
+                                        <p>本月覆盖 126 家门店，活动上传 84 家。</p>
+                                        <div class="progress"><span style="width:67%"></span></div>
+                                    </div>
+                                    <span class="tag info">84家</span>
+                                </div>
+                                <div class="record-row">
+                                    <div>
+                                        <strong>证据质量</strong>
+                                        <p>自动通过 142 单，补证 18 单，异常 6 单。</p>
+                                        <div class="progress"><span style="width:86%"></span></div>
+                                    </div>
+                                    <span class="tag warn">86%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel">
+                            <div class="panel-head">
+                                <div>
+                                    <h3>二批商名单</h3>
+                                    <p class="panel-desc">按服务门店数、通过率和核销金额排序。</p>
+                                </div>
+                            </div>
+                            <div class="activity-list">
+                                <div class="record-row">
+                                    <div>
+                                        <strong>苏州二批商 B203</strong>
+                                        <p>服务 46 家门店，本月通过 32 单，返利 ¥18,600。</p>
+                                    </div>
+                                    <span class="tag ok">高质量</span>
+                                </div>
+                                <div class="record-row">
+                                    <div>
+                                        <strong>宁波二批商 B118</strong>
+                                        <p>服务 28 家门店，本月通过 17 单，返利 ¥9,420。</p>
+                                    </div>
+                                    <span class="tag warn">需补证</span>
+                                </div>
+                                <div class="record-row">
+                                    <div>
+                                        <strong>南京二批商 B052</strong>
+                                        <p>服务 51 家门店，陈列活动带动率 71%。</p>
+                                    </div>
+                                    <span class="tag info">观察中</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="stats" class="screen">
+                    <div class="page-head">
+                        <div>
+                            <div class="page-kicker">RECONCILIATION REPORT</div>
+                            <h2>核销统计报表</h2>
+                            <p>按照活动、区域、经销商、二批商、门店、SKU、费用归属等维度统计，让业务和财务都能追踪每笔奖励为什么发、发给谁、归属哪个区。</p>
+                        </div>
+                        <div class="head-actions">
+                            <button class="btn secondary" id="exportReport"><i class="fa-solid fa-file-export"></i>导出报表</button>
+                            <button class="btn" data-view="settlement"><i class="fa-solid fa-coins"></i>去核销</button>
+                        </div>
+                    </div>
+
+                    <div class="panel">
+                        <div class="stat-tabs">
+                            <button class="tab-btn active" data-filter="all">全部</button>
+                            <button class="tab-btn" data-filter="package">套餐订购</button>
+                            <button class="tab-btn" data-filter="display">陈列活动</button>
+                            <button class="tab-btn" data-filter="partner">二批商</button>
+                            <button class="tab-btn" data-filter="risk">异常复核</button>
+                        </div>
+                        <table class="table" id="statsTable">
+                            <thead>
+                                <tr>
+                                    <th>维度</th>
+                                    <th>提交量</th>
+                                    <th>自动通过</th>
+                                    <th>奖励金额</th>
+                                    <th>费用归属</th>
+                                    <th>核销率</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-type="package">
+                                    <td>套餐订购 / 华东</td>
+                                    <td>528</td>
+                                    <td>471</td>
+                                    <td>¥126,800</td>
+                                    <td>华东大区 / 经销商 D-021</td>
+                                    <td><span class="tag ok">92%</span></td>
+                                </tr>
+                                <tr data-type="display">
+                                    <td>陈列活动 / 华南</td>
+                                    <td>386</td>
+                                    <td>301</td>
+                                    <td>¥68,420</td>
+                                    <td>华南大区 / 陈列基金</td>
+                                    <td><span class="tag warn">78%</span></td>
+                                </tr>
+                                <tr data-type="partner">
+                                    <td>二批商 / 华东</td>
+                                    <td>174</td>
+                                    <td>142</td>
+                                    <td>¥92,600</td>
+                                    <td>二批商返利池 / D-044</td>
+                                    <td><span class="tag ok">89%</span></td>
+                                </tr>
+                                <tr data-type="risk">
+                                    <td>异常复核 / 全国</td>
+                                    <td>43</td>
+                                    <td>0</td>
+                                    <td>¥18,900</td>
+                                    <td>待确认</td>
+                                    <td><span class="tag danger">0%</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <div class="toast" id="toast">操作已完成</div>
 
     <script>
-        document.querySelector(".mobile-menu").addEventListener("click", function() {
-            document.querySelector("nav ul").classList.toggle("active");
-        });
+        const screens = document.querySelectorAll(".screen");
+        const navButtons = document.querySelectorAll(".nav-btn[data-view]");
+        const toast = document.getElementById("toast");
 
-        function animateCounters() {
-            const counters = document.querySelectorAll(".counter");
-            const duration = 1200;
-            const startTime = performance.now();
-
-            function updateCounters(now) {
-                const progress = Math.min((now - startTime) / duration, 1);
-                const eased = 1 - Math.pow(1 - progress, 3);
-
-                counters.forEach(counter => {
-                    const target = Number(counter.getAttribute("data-target"));
-                    const value = Math.round(target * eased);
-                    counter.innerText = value.toLocaleString("zh-CN");
-                });
-
-                if (progress < 1) {
-                    requestAnimationFrame(updateCounters);
-                }
+        const campaignCopy = {
+            package: {
+                title: "门店订购套餐活动",
+                desc: "适用于门店向经销商或二批商订购指定套餐，并上传送货单、陈列照片后自动判奖。",
+                name: "夏季核心 SKU 套餐订购奖励",
+                rule: "识别送货单中的 SKU 与数量，满足 A/B/C 三个品类各不少于 1 件，且货架陈列照片评分达到 80 分，即发放 120 元门店奖励，并进入经销商货补池。",
+                mini: "A/B/C 三个品类各不少于 1 件，陈列评分达到 80 分。"
+            },
+            display: {
+                title: "门店陈列活动",
+                desc: "适用于门店上传货架陈列照片，系统识别品牌面数、陈列位置、价签和遮挡情况。",
+                name: "核心产品黄金货架陈列奖励",
+                rule: "识别货架照片，品牌连续陈列面数不少于 6 个，必须有价签，主推 SKU 位于第二或第三层，综合评分达到 85 分，发放 80 元陈列奖励。",
+                mini: "连续陈列面数不少于 6 个，有价签且位于黄金层，评分达到 85 分。"
+            },
+            custom: {
+                title: "未来扩展活动",
+                desc: "适用于后续配置扫码、铺货、销量达成、库存、节日主题活动等复杂条件。",
+                name: "自定义组合条件活动",
+                rule: "通过条件组件自由组合：主体身份、区域、SKU、销量、库存、扫码、拜访记录、陈列照片、时间窗口和预算上限。",
+                mini: "完成系统配置的组合任务后，自动进入奖励审核与核销。"
             }
+        };
 
-            requestAnimationFrame(updateCounters);
+        function showToast(message) {
+            toast.textContent = message;
+            toast.classList.add("show");
+            window.clearTimeout(showToast.timer);
+            showToast.timer = window.setTimeout(() => toast.classList.remove("show"), 2300);
         }
 
-        window.addEventListener("load", animateCounters, { once: true });
+        function showView(viewId) {
+            screens.forEach(screen => screen.classList.toggle("active", screen.id === viewId));
+            navButtons.forEach(btn => btn.classList.toggle("active", btn.dataset.view === viewId));
+            if (location.hash.slice(1) !== viewId) {
+                history.replaceState(null, "", "#" + viewId);
+            }
+            document.querySelector(".workspace").scrollIntoView({ behavior: "smooth", block: "start" });
+        }
 
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener("click", function(e) {
-                e.preventDefault();
+        function openMini(pageId) {
+            window.location.href = "mini-program.html?page=" + encodeURIComponent(pageId);
+        }
 
-                const targetId = this.getAttribute("href");
-                if (targetId === "#") return;
+        document.addEventListener("click", event => {
+            const viewTrigger = event.target.closest("[data-view]");
+            if (viewTrigger) {
+                showView(viewTrigger.dataset.view);
+            }
 
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 78,
-                        behavior: "smooth"
-                    });
+            const miniTrigger = event.target.closest("[data-mini]");
+            if (miniTrigger) {
+                openMini(miniTrigger.dataset.mini);
+            }
+        });
 
-                    document.querySelector("nav ul").classList.remove("active");
-                }
+        document.querySelectorAll("[data-activity]").forEach(btn => {
+            btn.addEventListener("click", () => {
+                const type = btn.dataset.activity;
+                const copy = campaignCopy[type];
+                document.querySelectorAll("[data-activity]").forEach(item => item.classList.toggle("active", item === btn));
+                document.getElementById("activityTitle").textContent = copy.title;
+                document.getElementById("activityDesc").textContent = copy.desc;
+                document.getElementById("campaignName").value = copy.name;
+                document.getElementById("campaignRule").value = copy.rule;
+                showToast("已切换为：" + copy.title);
             });
         });
+
+        document.getElementById("runAI").addEventListener("click", () => {
+            document.getElementById("aiStatus").className = "tag ok";
+            document.getElementById("aiStatus").textContent = "自动通过";
+            document.getElementById("aiSummary").textContent = "AI已识别到 3 个套餐SKU、送货日期在活动期内，货架陈列评分 86 分，建议发放奖励。";
+            document.getElementById("aiResult").innerHTML = `
+                <div class="record-row">
+                    <div>
+                        <strong>单据识别</strong>
+                        <p>供货主体 D-021，经销商归属华东；SKU-A 2件，SKU-B 1件，SKU-C 1件，总金额 ¥3,820。</p>
+                        <div class="progress"><span style="width:96%"></span></div>
+                    </div>
+                    <span class="tag ok">置信度 96%</span>
+                </div>
+                <div class="record-row">
+                    <div>
+                        <strong>套餐匹配</strong>
+                        <p>满足 A/B/C 三品类套餐要求，允许进入奖励池。</p>
+                        <div class="progress"><span style="width:100%"></span></div>
+                    </div>
+                    <span class="tag ok">已满足</span>
+                </div>
+                <div class="record-row">
+                    <div>
+                        <strong>陈列识别</strong>
+                        <p>识别到连续陈列 7 个面，价签清晰，主推SKU位于第二层，综合评分 86。</p>
+                        <div class="progress"><span style="width:86%"></span></div>
+                    </div>
+                    <span class="tag ok">86分</span>
+                </div>
+                <div class="record-row">
+                    <div>
+                        <strong>奖励建议</strong>
+                        <p>发放门店奖励 ¥120，经销商货补 ¥80，费用归属华东大区。</p>
+                    </div>
+                    <span class="tag warn">待确认</span>
+                </div>
+            `;
+            showToast("AI识别完成：套餐与陈列均满足活动要求");
+        });
+
+        document.getElementById("approveReward").addEventListener("click", () => {
+            showToast("已生成核销单 HX-202606-0190，并进入奖励发放池");
+            showView("settlement");
+        });
+
+        document.getElementById("saveActivity").addEventListener("click", () => {
+            showToast("活动已保存，可从小程序预览查看门店端效果");
+        });
+
+        document.getElementById("addCondition").addEventListener("click", () => {
+            const node = document.createElement("div");
+            node.className = "condition-chip";
+            node.innerHTML = `
+                <span class="chip-icon" style="background:var(--red)"><i class="fa-solid fa-plug-circle-plus"></i></span>
+                <div>
+                    <strong>新增扩展条件</strong>
+                    <p>可接入库存、扫码、销量达成、拜访记录或第三方系统数据。</p>
+                </div>
+                <span class="toggle"><span class="switch"></span>已启用</span>
+            `;
+            document.getElementById("conditionList").appendChild(node);
+            showToast("已添加一个可扩展条件组件");
+        });
+
+        document.getElementById("batchSettle").addEventListener("click", () => {
+            showToast("已提交 168 笔待核销奖励给财务确认");
+        });
+
+        document.getElementById("exportReport").addEventListener("click", () => {
+            showToast("核销统计报表已生成，可按活动、区域、主体导出");
+        });
+
+        document.querySelectorAll("[data-filter]").forEach(btn => {
+            btn.addEventListener("click", () => {
+                const type = btn.dataset.filter;
+                document.querySelectorAll("[data-filter]").forEach(item => item.classList.toggle("active", item === btn));
+                document.querySelectorAll("#statsTable tbody tr").forEach(row => {
+                    row.style.display = type === "all" || row.dataset.type === type ? "" : "none";
+                });
+            });
+        });
+
+        document.getElementById("globalSearch").addEventListener("keydown", event => {
+            if (event.key === "Enter") {
+                showToast("已搜索：" + event.currentTarget.value);
+            }
+        });
+
+        const initialView = location.hash.slice(1);
+        if (initialView && document.getElementById(initialView)) {
+            showView(initialView);
+        }
     </script>
 </body>
 </html>
