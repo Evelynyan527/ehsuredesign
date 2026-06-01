@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>童心守护计划 - 关爱儿童公益单页</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", sans-serif;
+        }
+
+        :root {
+            --primary: #e85d75;
+            --secondary: #ffb703;
+            --accent: #3a86ff;
+            --mint: #43aa8b;
+            --light: #fff8ef;
+            --soft: #f8edf1;
+            --dark: #283044;
+            --text: #4a4a4a;
+            --white: #ffffff;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        header {
+            background: linear-gradient(120deg, var(--primary), #f77f8f 48%, var(--secondary));
+            color: var(--white);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 14px rgba(40, 48, 68, 0.14);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.65rem;
+            font-weight: 800;
+        }
+
+        .logo i {
+            font-size: 1.9rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 2rem;
+        }
+
+        nav ul li a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        nav ul li a:hover {
+            color: #fff4c2;
+        }
+
+        nav ul li a::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #fff4c2;
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            background:
+                linear-gradient(rgba(40, 48, 68, 0.55), rgba(232, 93, 117, 0.34)),
+                url("https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?auto=format&fit=crop&w=2000&q=80");
+            background-size: cover;
+            background-position: center 34%;
+            min-height: 78vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .hero-content {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 6rem 0;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.3rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 8px rgba(40, 48, 68, 0.45);
+            letter-spacing: 0;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.55rem;
+            background-color: var(--accent);
+            color: var(--white);
+            min-height: 46px;
+            padding: 0.78rem 1.75rem;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 6px 14px rgba(58, 134, 255, 0.24);
+        }
+
+        .btn:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(232, 93, 117, 0.28);
+        }
+
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: clamp(2rem, 4vw, 2.7rem);
+            color: var(--dark);
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+            letter-spacing: 0;
+        }
+
+        .section-title h2::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 86px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary), var(--mint));
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            color: var(--text);
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-img {
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 14px 30px rgba(40, 48, 68, 0.13);
+        }
+
+        .about-img img {
+            width: 100%;
+            min-height: 420px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .about-img:hover img {
+            transform: scale(1.04);
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.4rem;
+            color: var(--primary);
+        }
+
+        .about-text p {
+            margin-bottom: 1.35rem;
+        }
+
+        .support-list {
+            display: grid;
+            gap: 0.8rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .support-list span {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        .support-list i {
+            color: var(--mint);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2rem 1rem;
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 6px 18px rgba(40, 48, 68, 0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-8px);
+        }
+
+        .stat-item i {
+            font-size: 2.35rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .stat-item:nth-child(2) i {
+            color: var(--primary);
+        }
+
+        .stat-item:nth-child(3) i {
+            color: var(--secondary);
+        }
+
+        .stat-item:nth-child(4) i {
+            color: var(--mint);
+        }
+
+        .stat-item h3 {
+            font-size: 2.35rem;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .programs {
+            background-color: var(--white);
+        }
+
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .program-card {
+            background-color: var(--soft);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(40, 48, 68, 0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .program-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .program-img {
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .program-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .program-card:hover .program-img img {
+            transform: scale(1.08);
+        }
+
+        .program-content {
+            padding: 1.5rem;
+        }
+
+        .program-content h3 {
+            font-size: 1.45rem;
+            margin-bottom: 0.85rem;
+            color: var(--dark);
+        }
+
+        .program-content p {
+            margin-bottom: 1.4rem;
+        }
+
+        .cta {
+            background:
+                linear-gradient(120deg, rgba(232, 93, 117, 0.93), rgba(58, 134, 255, 0.9)),
+                url("https://images.unsplash.com/photo-1596464716127-f2a82984de30?auto=format&fit=crop&w=1800&q=80");
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            text-align: center;
+            padding: 5rem 0;
+        }
+
+        .cta h2 {
+            font-size: clamp(2rem, 4vw, 2.7rem);
+            margin-bottom: 1.4rem;
+        }
+
+        .cta p {
+            font-size: 1.15rem;
+            margin-bottom: 2rem;
+            max-width: 760px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta .btn {
+            background-color: var(--white);
+            color: var(--primary);
+            box-shadow: 0 8px 20px rgba(40, 48, 68, 0.18);
+        }
+
+        .cta .btn:hover {
+            background-color: var(--secondary);
+            color: var(--dark);
+        }
+
+        footer {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.4rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 42px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+
+        .footer-column p {
+            margin-bottom: 0.9rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links li a {
+            color: #f7e9ec;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links li a:hover {
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 0.9rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--secondary);
+            color: var(--dark);
+            transform: translateY(-4px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .counter {
+            transition: all 0.5s ease;
+        }
+
+        @media (max-width: 992px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .programs-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 0.85rem 0;
+            }
+
+            .logo {
+                font-size: 1.35rem;
+            }
+
+            .hero {
+                min-height: 70vh;
+            }
+
+            .hero p {
+                font-size: 1.08rem;
+            }
+
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary);
+                flex-direction: column;
+                padding: 1rem 0;
+                text-align: center;
+                box-shadow: 0 5px 12px rgba(40, 48, 68, 0.14);
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            nav ul li {
+                margin: 0;
+                padding: 0.8rem 0;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            section {
+                padding: 4rem 0;
+            }
+
+            .programs-grid,
+            .footer-content,
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .about-img img {
+                min-height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <div class="logo">
+                <i class="fas fa-hands-holding-child"></i>
+                <span>童心守护计划</span>
+            </div>
+            <nav>
+                <div class="mobile-menu" aria-label="打开导航">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <ul>
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#about">关于我们</a></li>
+                    <li><a href="#programs">关爱行动</a></li>
+                    <li><a href="#get-involved">参与守护</a></li>
+                    <li><a href="#contact">联系我们</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <h1>让每个孩子被看见、被倾听、被温柔守护</h1>
+            <p>我们连接家庭、学校、社区与志愿者，为儿童提供陪伴、教育支持、心理关怀和安全保护。</p>
+            <a href="#get-involved" class="btn"><i class="fas fa-heart"></i>加入守护</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>关于童心守护计划</h2>
+                <p>我们相信，儿童的成长不只需要物质帮助，更需要稳定的陪伴、被尊重的表达和安全的生活环境。</p>
+            </div>
+            <div class="about-content">
+                <div class="about-img">
+                    <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1800&q=80" alt="志愿者陪伴孩子学习与游戏">
+                </div>
+                <div class="about-text">
+                    <h3>用持续的陪伴托住孩子的成长</h3>
+                    <p>童心守护计划关注困境儿童、留守儿童和需要额外支持的家庭，通过社区服务站、学校协作和志愿者网络，为孩子建立更稳定的支持系统。</p>
+                    <p>我们把关爱落到日常：一次课后辅导、一通倾听电话、一场安全教育、一份成长档案，都可能成为孩子继续向前的力量。</p>
+                    <div class="support-list">
+                        <span><i class="fas fa-check-circle"></i>儿童心理支持与情绪陪伴</span>
+                        <span><i class="fas fa-check-circle"></i>学习资源、阅读空间与兴趣课程</span>
+                        <span><i class="fas fa-check-circle"></i>安全教育、家庭沟通与社区联动</span>
+                    </div>
+                    <a href="#programs" class="btn"><i class="fas fa-arrow-down"></i>了解行动</a>
+                </div>
+            </div>
+            <div class="stats">
+                <div class="stat-item">
+                    <i class="fas fa-child-reaching"></i>
+                    <h3 class="counter" data-target="12800">0</h3>
+                    <p>名儿童获得支持</p>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-user-group"></i>
+                    <h3 class="counter" data-target="3600">0</h3>
+                    <p>位志愿者参与</p>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-book-open-reader"></i>
+                    <h3 class="counter" data-target="520">0</h3>
+                    <p>场成长课程</p>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-house-chimney-heart"></i>
+                    <h3 class="counter" data-target="86">0</h3>
+                    <p>个社区服务点</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="programs" id="programs">
+        <div class="container">
+            <div class="section-title">
+                <h2>我们的关爱行动</h2>
+                <p>从学习、心理、安全到家庭支持，我们用清晰可执行的项目，让善意真正抵达孩子身边。</p>
+            </div>
+            <div class="programs-grid">
+                <div class="program-card">
+                    <div class="program-img">
+                        <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1600&q=80" alt="儿童阅读与学习支持">
+                    </div>
+                    <div class="program-content">
+                        <h3>成长书桌</h3>
+                        <p>为孩子提供课后辅导、阅读陪伴和学习用品支持，让知识成为更公平的起点。</p>
+                        <a href="#get-involved" class="btn"><i class="fas fa-book"></i>捐赠图书</a>
+                    </div>
+                </div>
+                <div class="program-card">
+                    <div class="program-img">
+                        <img src="https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=1600&q=80" alt="孩子们在户外活动中微笑">
+                    </div>
+                    <div class="program-content">
+                        <h3>安心陪伴</h3>
+                        <p>组织志愿者定期陪伴和专业心理支持，帮助孩子表达情绪、建立自信。</p>
+                        <a href="#get-involved" class="btn"><i class="fas fa-hand-holding-heart"></i>成为志愿者</a>
+                    </div>
+                </div>
+                <div class="program-card">
+                    <div class="program-img">
+                        <img src="https://images.unsplash.com/photo-1471286174890-9c112ffca5b4?auto=format&fit=crop&w=1600&q=80" alt="儿童与家人在安全友好的环境中互动">
+                    </div>
+                    <div class="program-content">
+                        <h3>安全小课堂</h3>
+                        <p>开展防走失、防欺凌、网络安全和家庭沟通课程，为孩子筑起日常保护网。</p>
+                        <a href="#get-involved" class="btn"><i class="fas fa-shield-heart"></i>支持课程</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta" id="get-involved">
+        <div class="container">
+            <h2>把一次关心，变成孩子长期的底气</h2>
+            <p>你可以用志愿服务、图书捐赠、课程支持或社区共建参与进来。每一份稳定的善意，都会让孩子更安心地长大。</p>
+            <a href="#contact" class="btn"><i class="fas fa-paper-plane"></i>联系加入</a>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>童心守护计划</h3>
+                    <p>用专业、耐心和持续行动，为儿童创造更安全、更有爱、更有希望的成长环境。</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="微信"><i class="fab fa-weixin"></i></a>
+                        <a href="#" aria-label="微博"><i class="fab fa-weibo"></i></a>
+                        <a href="#" aria-label="QQ"><i class="fab fa-qq"></i></a>
+                        <a href="#" aria-label="邮件"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>快速导航</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">首页</a></li>
+                        <li><a href="#about">关于我们</a></li>
+                        <li><a href="#programs">关爱行动</a></li>
+                        <li><a href="#get-involved">参与守护</a></li>
+                        <li><a href="#contact">联系我们</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>支持方式</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">志愿陪伴</a></li>
+                        <li><a href="#">图书与文具捐赠</a></li>
+                        <li><a href="#">成长课程共建</a></li>
+                        <li><a href="#">儿童安全教育</a></li>
+                        <li><a href="#">社区服务站合作</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>联系我们</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 上海市静安区暖阳公益中心</p>
+                    <p><i class="fas fa-phone"></i> 400-880-0616</p>
+                    <p><i class="fas fa-envelope"></i> hello@childcare.org.cn</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 童心守护计划. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.querySelector(".mobile-menu").addEventListener("click", function() {
+            document.querySelector("nav ul").classList.toggle("active");
+        });
+
+        function animateCounters() {
+            const counters = document.querySelectorAll(".counter");
+            const duration = 1200;
+            const startTime = performance.now();
+
+            function updateCounters(now) {
+                const progress = Math.min((now - startTime) / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+
+                counters.forEach(counter => {
+                    const target = Number(counter.getAttribute("data-target"));
+                    const value = Math.round(target * eased);
+                    counter.innerText = value.toLocaleString("zh-CN");
+                });
+
+                if (progress < 1) {
+                    requestAnimationFrame(updateCounters);
+                }
+            }
+
+            requestAnimationFrame(updateCounters);
+        }
+
+        window.addEventListener("load", animateCounters, { once: true });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener("click", function(e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute("href");
+                if (targetId === "#") return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 78,
+                        behavior: "smooth"
+                    });
+
+                    document.querySelector("nav ul").classList.remove("active");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
