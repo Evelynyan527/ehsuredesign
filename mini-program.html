@@ -37,7 +37,8 @@
         }
 
         button,
-        input {
+        input,
+        textarea {
             font: inherit;
         }
 
@@ -329,6 +330,90 @@
             color: #fff;
         }
 
+        .feedback-types {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .feedback-type {
+            min-height: 42px;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: #f4f7fc;
+            color: var(--text);
+            font-weight: 800;
+        }
+
+        .feedback-type.active {
+            border-color: var(--blue);
+            background: #eef4ff;
+            color: var(--blue);
+        }
+
+        .field {
+            display: grid;
+            gap: 7px;
+            margin-top: 12px;
+        }
+
+        .field label {
+            color: var(--muted);
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .field input,
+        .field textarea {
+            width: 100%;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: #fff;
+            color: var(--text);
+            outline: 0;
+            padding: 10px;
+        }
+
+        .field input {
+            min-height: 40px;
+        }
+
+        .field textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        .attach-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .attach-action {
+            min-height: 82px;
+            border: 1px dashed #9db2d3;
+            border-radius: var(--radius);
+            background: #f9fbff;
+            color: var(--muted);
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .attach-action.active {
+            border-style: solid;
+            border-color: rgba(36, 107, 254, 0.55);
+            background: #eef4ff;
+            color: var(--blue);
+        }
+
+        .attach-action i {
+            display: block;
+            color: var(--blue);
+            font-size: 22px;
+            margin-bottom: 6px;
+        }
+
         .bottom-nav {
             position: fixed;
             left: 50%;
@@ -337,7 +422,7 @@
             transform: translateX(-50%);
             height: 68px;
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             border-top: 1px solid var(--line);
             background: #fff;
             z-index: 6;
@@ -623,7 +708,60 @@
                         </button>
                     </li>
                 </ul>
+                <button class="btn secondary" data-page="feedback"><i class="fa-solid fa-comment-dots"></i>问题反馈</button>
                 <a class="btn secondary" href="index.html#partner"><i class="fa-solid fa-warehouse"></i>查看二批商后台</a>
+            </div>
+        </section>
+
+        <section id="feedback" class="page">
+            <div class="hero">
+                <h2>问题反馈</h2>
+                <p>遇到识别错误、奖励异常、活动规则不清楚或资料问题，可以直接提交给运营处理。</p>
+            </div>
+            <div class="card">
+                <div class="card-head">
+                    <h3>反馈类型</h3>
+                    <span class="tag info" id="feedbackTypeTag">AI识别</span>
+                </div>
+                <div class="feedback-types">
+                    <button class="feedback-type active" data-feedback-type="AI识别">AI识别</button>
+                    <button class="feedback-type" data-feedback-type="奖励异常">奖励异常</button>
+                    <button class="feedback-type" data-feedback-type="活动规则">活动规则</button>
+                    <button class="feedback-type" data-feedback-type="资料认证">资料认证</button>
+                </div>
+                <div class="field">
+                    <label for="feedbackText">问题描述</label>
+                    <textarea id="feedbackText" placeholder="请描述遇到的问题，例如：送货单里 SKU-B 已购买，但系统没有识别出来。"></textarea>
+                </div>
+                <div class="attach-row">
+                    <button class="attach-action" id="attachScreenshot"><span><i class="fa-solid fa-image"></i>添加截图</span></button>
+                    <button class="attach-action" id="attachEvidence"><span><i class="fa-solid fa-paperclip"></i>关联证据</span></button>
+                </div>
+                <div class="field">
+                    <label for="feedbackContact">联系方式</label>
+                    <input id="feedbackContact" value="138****5270">
+                </div>
+                <button class="btn green" id="submitFeedback"><i class="fa-solid fa-paper-plane"></i>提交反馈</button>
+            </div>
+            <div class="card">
+                <div class="card-head">
+                    <h3>反馈记录</h3>
+                    <span class="tag warn" id="feedbackCount">2条</span>
+                </div>
+                <ul class="list action-list" id="feedbackHistory">
+                    <li>
+                        <button class="list-action" data-detail="feedbackSku">
+                            <span><strong>SKU-B 未识别</strong><small>2026-06-01 18:22 提交</small></span>
+                            <span class="tag warn">处理中</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="list-action" data-detail="feedbackReward">
+                            <span><strong>陈列奖励未到账</strong><small>2026-05-30 09:14 提交</small></span>
+                            <span class="tag ok">已回复</span>
+                        </button>
+                    </li>
+                </ul>
             </div>
         </section>
 
@@ -632,6 +770,7 @@
             <button data-page="upload"><i class="fa-solid fa-camera"></i><span>上传</span></button>
             <button data-page="reward"><i class="fa-solid fa-gift"></i><span>奖励</span></button>
             <button data-page="profile"><i class="fa-solid fa-user"></i><span>我的</span></button>
+            <button data-page="feedback"><i class="fa-solid fa-comment-dots"></i><span>反馈</span></button>
         </nav>
     </main>
 
@@ -659,6 +798,7 @@
         const detailTitle = document.getElementById("detailTitle");
         const detailSummary = document.getElementById("detailSummary");
         const detailList = document.getElementById("detailList");
+        let selectedFeedbackType = "AI识别";
 
         const detailData = {
             package: {
@@ -740,6 +880,21 @@
                 title: "认证状态",
                 summary: "已认证主体可以参与活动、上传证据并领取奖励。",
                 rows: [["主体类型", "门店"], ["认证结果", "已通过"], ["可参与活动", "套餐订购、陈列活动"]]
+            },
+            feedbackSku: {
+                title: "SKU-B 未识别",
+                summary: "运营正在复核送货单原图和 AI 识别结果，预计 2 小时内完成处理。",
+                rows: [["反馈单号", "FB-20260601-002"], ["问题类型", "AI识别"], ["当前状态", "处理中"]]
+            },
+            feedbackReward: {
+                title: "陈列奖励未到账",
+                summary: "该笔陈列奖励已核销，预计随下一批奖励发放。",
+                rows: [["反馈单号", "FB-20260530-014"], ["问题类型", "奖励异常"], ["处理结果", "已进入发放批次"]]
+            },
+            feedbackSubmitted: {
+                title: "反馈已提交",
+                summary: "问题已同步给运营，系统会关联当前门店、活动和最近一次证据包。",
+                rows: [["反馈单号", "FB-20260601-009"], ["问题类型", "AI识别"], ["预计响应", "2小时内"]]
             }
         };
 
@@ -802,6 +957,51 @@
                     ? "已选择 " + selected + " 类证据，可提交给 AI 识别。"
                     : "请保证单据抬头、SKU 名称、数量和日期清晰可见。";
             });
+        });
+
+        document.querySelectorAll(".feedback-type").forEach(btn => {
+            btn.addEventListener("click", () => {
+                document.querySelectorAll(".feedback-type").forEach(item => item.classList.toggle("active", item === btn));
+                selectedFeedbackType = btn.dataset.feedbackType;
+                document.getElementById("feedbackTypeTag").textContent = selectedFeedbackType;
+                detailData.feedbackSubmitted.rows = [["反馈单号", "FB-20260601-009"], ["问题类型", selectedFeedbackType], ["预计响应", "2小时内"]];
+                showToast("已选择：" + selectedFeedbackType);
+            });
+        });
+
+        document.getElementById("attachScreenshot").addEventListener("click", () => {
+            document.getElementById("attachScreenshot").classList.toggle("active");
+            showDetail({
+                "AI识别": "receipt",
+                "奖励异常": "rewardPackage",
+                "活动规则": "condition",
+                "资料认证": "profileCert"
+            }[selectedFeedbackType] || "receipt");
+            showToast("已模拟添加问题截图");
+        });
+
+        document.getElementById("attachEvidence").addEventListener("click", () => {
+            document.getElementById("attachEvidence").classList.toggle("active");
+            showDetail("submitted");
+            showToast("已关联最近一次证据包");
+        });
+
+        document.getElementById("submitFeedback").addEventListener("click", () => {
+            const text = document.getElementById("feedbackText").value.trim();
+            const title = text ? text.slice(0, 14) : selectedFeedbackType + "问题";
+            const history = document.getElementById("feedbackHistory");
+            const item = document.createElement("li");
+            item.innerHTML = `
+                <button class="list-action" data-detail="feedbackSubmitted">
+                    <span><strong>${title}</strong><small>刚刚提交，等待运营处理</small></span>
+                    <span class="tag warn">新提交</span>
+                </button>
+            `;
+            history.prepend(item);
+            document.getElementById("feedbackCount").textContent = "3条";
+            detailData.feedbackSubmitted.rows = [["反馈单号", "FB-20260601-009"], ["问题类型", selectedFeedbackType], ["联系方式", document.getElementById("feedbackContact").value || "未填写"]];
+            showDetail("feedbackSubmitted");
+            showToast("反馈已提交");
         });
 
         document.getElementById("submitEvidence").addEventListener("click", () => {
