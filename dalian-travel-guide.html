@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>沈阳→大连 自驾两日游攻略</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #F7F6F3;
+    color: #2C2C2A;
+    line-height: 1.7;
+    font-size: 15px;
+  }
+  .hero {
+    background: linear-gradient(135deg, #1D9E75 0%, #0F6E56 40%, #085041 100%);
+    color: #fff;
+    padding: 48px 32px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+  }
+  .hero h1 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+  }
+  .hero .subtitle {
+    font-size: 16px;
+    font-weight: 300;
+    opacity: 0.9;
+    margin-bottom: 20px;
+  }
+  .hero .meta-row {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .meta-item {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(4px);
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 13px;
+    font-weight: 400;
+  }
+  .container { max-width: 800px; margin: 0 auto; padding: 0 20px; }
+
+  .section {
+    margin: 32px auto;
+    max-width: 800px;
+    padding: 0 20px;
+  }
+  .section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0F6E56;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title .icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+
+  .day-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 24px;
+    border: 1px solid #E8E6E0;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+  .day-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #E1F5EE;
+  }
+  .day-badge {
+    background: #0F6E56;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 4px 14px;
+    border-radius: 12px;
+  }
+  .day-date {
+    font-size: 16px;
+    font-weight: 500;
+    color: #2C2C2A;
+  }
+
+  .timeline {
+    position: relative;
+    padding-left: 24px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 4px;
+    bottom: 4px;
+    width: 2px;
+    background: #D3D1C7;
+  }
+  .time-block {
+    position: relative;
+    margin-bottom: 24px;
+  }
+  .time-block:last-child { margin-bottom: 0; }
+  .time-dot {
+    position: absolute;
+    left: -24px;
+    top: 6px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2.5px solid #1D9E75;
+    z-index: 1;
+  }
+  .time-dot.highlight {
+    background: #1D9E75;
+    border-color: #0F6E56;
+    box-shadow: 0 0 0 4px rgba(29,158,117,0.15);
+  }
+  .time-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #0F6E56;
+    margin-bottom: 4px;
+  }
+  .time-content h4 {
+    font-size: 15px;
+    font-weight: 500;
+    color: #2C2C2A;
+    margin-bottom: 4px;
+  }
+  .time-content p {
+    font-size: 14px;
+    color: #5F5E5A;
+    line-height: 1.7;
+  }
+  .time-content .tag {
+    display: inline-block;
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-right: 6px;
+    margin-top: 4px;
+  }
+  .tag-drive { background: #E6F1FB; color: #185FA5; }
+  .tag-eat { background: #FAEEDA; color: #854F0B; }
+  .tag-play { background: #E1F5EE; color: #0F6E56; }
+  .tag-photo { background: #FBEAF0; color: #993556; }
+  .tag-sunrise { background: #FAEEDA; color: #BA7517; }
+
+  .hotel-section {
+    background: linear-gradient(135deg, #FFF9F0, #FFF5E6);
+    border-radius: 16px;
+    padding: 24px;
+    margin: 24px 0;
+    border: 1px solid #F0DFC0;
+  }
+  .hotel-section h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: #854F0B;
+    margin-bottom: 16px;
+  }
+  .hotel-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    border: 1px solid #E8E6E0;
+  }
+  .hotel-card:last-child { margin-bottom: 0; }
+  .hotel-card .hotel-name {
+    font-size: 15px;
+    font-weight: 500;
+    color: #2C2C2A;
+    margin-bottom: 4px;
+  }
+  .hotel-card .hotel-desc {
+    font-size: 13px;
+    color: #5F5E5A;
+    margin-bottom: 6px;
+  }
+  .hotel-card .hotel-price {
+    font-size: 14px;
+    font-weight: 500;
+    color: #BA7517;
+  }
+  .hotel-card .hotel-tag {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: #FAEEDA;
+    color: #854F0B;
+    margin-left: 8px;
+  }
+  .recommend {
+    border: 2px solid #BA7517;
+    position: relative;
+  }
+  .recommend::after {
+    content: '首选推荐';
+    position: absolute;
+    top: -10px;
+    right: 12px;
+    background: #BA7517;
+    color: #fff;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 500;
+  }
+
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .tip-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px 20px;
+    border: 1px solid #E8E6E0;
+  }
+  .tip-card h4 {
+    font-size: 14px;
+    font-weight: 500;
+    color: #2C2C2A;
+    margin-bottom: 6px;
+  }
+  .tip-card p {
+    font-size: 13px;
+    color: #5F5E5A;
+  }
+
+  .route-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .route-stat {
+    background: #E1F5EE;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+  }
+  .route-stat .num {
+    font-size: 24px;
+    font-weight: 700;
+    color: #0F6E56;
+  }
+  .route-stat .unit {
+    font-size: 13px;
+    color: #1D9E75;
+  }
+  .route-stat .label {
+    font-size: 12px;
+    color: #5F5E5A;
+    margin-top: 2px;
+  }
+
+  .sunrise-box {
+    background: linear-gradient(135deg, #FFF9F0 0%, #FDE8D0 100%);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    border-left: 4px solid #BA7517;
+  }
+  .sunrise-box h4 {
+    font-size: 15px;
+    font-weight: 500;
+    color: #854F0B;
+    margin-bottom: 6px;
+  }
+  .sunrise-box p {
+    font-size: 13px;
+    color: #6D5A3A;
+  }
+
+  .food-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .food-item {
+    background: #fff;
+    border-radius: 10px;
+    padding: 12px 16px;
+    border: 1px solid #E8E6E0;
+  }
+  .food-item .food-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #2C2C2A;
+  }
+  .food-item .food-desc {
+    font-size: 12px;
+    color: #888780;
+    margin-top: 2px;
+  }
+
+  footer {
+    text-align: center;
+    padding: 32px 20px;
+    color: #888780;
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>沈阳 → 大连 自驾两日游</h1>
+  <p class="subtitle">6月13日出发 · 6月14日返回 · 追一场海上日出</p>
+  <div class="meta-row">
+    <span class="meta-item">390公里 / 约4.5小时</span>
+    <span class="meta-item">沈海高速 G15</span>
+    <span class="meta-item">两天一夜</span>
+  </div>
+</div>
+
+<div class="container" style="margin-top: 32px;">
+  <div class="route-info">
+    <div class="route-stat">
+      <div class="num">390<span class="unit">km</span></div>
+      <div class="label">单程距离</div>
+    </div>
+    <div class="route-stat">
+      <div class="num">4.5<span class="unit">h</span></div>
+      <div class="label">预计车程</div>
+    </div>
+    <div class="route-stat">
+      <div class="num">04:27</div>
+      <div class="label">6/14 日出时间</div>
+    </div>
+    <div class="route-stat">
+      <div class="num">19:20</div>
+      <div class="label">6/14 日落时间</div>
+    </div>
+  </div>
+</div>
+
+<!-- 自驾路线 -->
+<div class="section">
+  <div class="section-title">
+    <span class="icon" style="background:#E6F1FB; color:#185FA5;">🚗</span>
+    自驾路线
+  </div>
+  <div class="day-card">
+    <p style="font-size:14px; color:#2C2C2A; margin-bottom:12px;"><strong>去程（沈阳→大连）</strong></p>
+    <p style="font-size:14px; color:#5F5E5A;">沈阳城区 → 青年大街上高速 → <strong>沈海高速 G15</strong> 一路向南 → 经辽阳、鞍山、营口、鲅鱼圈 → 大连收费站下高速 → 进入大连市区</p>
+    <p style="font-size:13px; color:#888780; margin-top:8px;">油费约 200元 | 过路费约 185元 | 建议提前加满油</p>
+    <div style="margin-top:16px; padding-top:16px; border-top:1px dashed #D3D1C7;">
+      <p style="font-size:14px; color:#2C2C2A; margin-bottom:12px;"><strong>返程（大连→沈阳）</strong></p>
+      <p style="font-size:14px; color:#5F5E5A;">原路返回，沈海高速 G15 一路向北，约4.5小时抵达沈阳</p>
+    </div>
+  </div>
+</div>
+
+<!-- 酒店推荐 -->
+<div class="section">
+  <div class="section-title">
+    <span class="icon" style="background:#FAEEDA; color:#854F0B;">🌅</span>
+    看日出酒店推荐（东朝向·面朝大海）
+  </div>
+  <div class="hotel-section">
+    <h3>为什么选东港/棒棰岛附近？</h3>
+    <p style="font-size:13px; color:#6D5A3A; margin-bottom:16px;">大连海岸线朝南弯曲，只有<strong>东港、棒棰岛、金石滩</strong>一带面向东方，才能看到太阳从海面升起。星海广场朝南，看不到海上日出。</p>
+
+    <div class="hotel-card recommend">
+      <div class="hotel-name">四时鲸语度假酒店</div>
+      <div class="hotel-desc">位置：东港商务区·海之韵旁 | 德国设计师建筑，与礁石大海融为一体 | 东向海景房可直接在床上看日出 | 距海之韵公园3分钟车程</div>
+      <div class="hotel-price">约 600-900元/晚<span class="hotel-tag">可在房间看日出</span></div>
+    </div>
+
+    <div class="hotel-card">
+      <div class="hotel-name">大连君悦酒店</div>
+      <div class="hotel-desc">位置：星海广场旁 | 高层海景落地窗，浴缸临窗观海 | 品质出众，但面朝南方，日出需到星海广场海边</div>
+      <div class="hotel-price">约 1000-1500元/晚<span class="hotel-tag">品质之选</span></div>
+    </div>
+
+    <div class="hotel-card">
+      <div class="hotel-name">棒棰岛宾馆</div>
+      <div class="hotel-desc">位置：棒棰岛景区内 | 国宾馆级别，独享私家海滩 | 朝东面海，步行至海边看日出3分钟 | 环境清幽</div>
+      <div class="hotel-price">约 500-800元/晚<span class="hotel-tag">国宾馆·步行看日出</span></div>
+    </div>
+
+    <div class="hotel-card">
+      <div class="hotel-name">东港亚朵酒店</div>
+      <div class="hotel-desc">位置：东港商务区 | 性价比高，部分房型东向可看海上日出 | 距东港音乐喷泉步行可达</div>
+      <div class="hotel-price">约 350-500元/晚<span class="hotel-tag">性价比之选</span></div>
+    </div>
+
+    <div class="hotel-card">
+      <div class="hotel-name">悦禾海景艺术酒店（东港威尼斯水城店）</div>
+      <div class="hotel-desc">位置：东港威尼斯水城旁 | 艺术设计风格，海景房视野开阔 | 步行到海边看日出5分钟</div>
+      <div class="hotel-price">约 400-600元/晚<span class="hotel-tag">设计感</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Day 1 -->
+<div class="section">
+  <div class="section-title">
+    <span class="icon" style="background:#E1F5EE; color:#0F6E56;">1</span>
+    第一天行程
+  </div>
+  <div class="day-card">
+    <div class="day-header">
+      <span class="day-badge">Day 1</span>
+      <span class="day-date">6月13日 周六</span>
+    </div>
+    <div class="timeline">
+      <div class="time-block">
+        <div class="time-dot"></div>
+        <div class="time-label">07:00</div>
+        <div class="time-content">
+          <h4>沈阳出发</h4>
+          <p>早餐后从沈阳出发，走青年大街上沈海高速G15，一路向南</p>
+          <span class="tag tag-drive">自驾</span>
+        </div>
+      </div>
+      <div class="time-block">
+        <div class="time-dot"></div>
+        <div class="time-label">09:00</div>
+        <div class="time-content">
+          <h4>鲅鱼圈服务区休息</h4>
+          <p>中途可在鲅鱼圈服务区休整15分钟，活动筋骨，喝杯咖啡提神</p>
+          <span class="tag tag-drive">休整</span>
+        </div>
+      </div>
+      <div class="time-block">
+        <div class="time-dot highlight"></div>
+        <div class="time-label">11:30</div>
+        <div class="time-content">
+          <h4>抵达大连·入住酒店</h4>
+          <p>下高速后前往东港/棒棰岛区域酒店，办理入住，稍作休息。选东向海景房，确认明早日出方向</p>
+          <span class="tag tag-play">入住</span>
+        </div>
+      </div>
+      <div class="time-block">
+        <div class="time-dot highlight"></div>
+        <div class="time-label">12:00</div>
+        <div class="time-content">
+          <h4>午餐：正黄旗海鲜烧烤</h4>
+          <p>大连排名第一的海鲜烧烤，海胆水饺、烤海蛎子、活海肠必点。从码头到餐桌仅3小时，鲜度无敌</p>
+          <span class="tag tag-eat">必吃</span>
+        </div>
+      </div>
+      <div class="time-block">
+        <div class="time-dot highlight"></div>
+        <div class="time-label">14:00</div>
+        <div class="time-content">
+          <h4>星海广场 + 跨海大桥观景台</h4>
+          <p>亚洲最大城市广场，喂海鸥、拍照打卡。步行至跨海大桥最佳观景台，俯瞰星海湾大桥壮丽全景</p>
+          <span class="tag tag-play">地标</span>
+          <span class="tag tag-photo">拍照</span>
+        </div>
+      </div>
+      <div class="time-block">
+        <div class="time-dot"></div>
+        <div class="time-label">15:30</div>
+        <div class="time-content">
+          <h4>滨海路自驾</h4>
+          <p>从星海广场出发沿滨海路东行，途经付家庄、燕窝岭、北大桥、老虎滩，山海相依，大连最美海岸公路</p>
+          <span class="tag tag-drive">最美公路</span>
+          <span class="tag tag-photo">沿途风景</span>
+        </div>
+      </div>
+      <div class="time-block">
+        <div class="time-dot highlight"></div>
+        <div class="time-label">17:00</div>
+        <div class="time-content">
+          <h4>棒棰岛景区</h4>
+          <p>大连最干净的海水浴场，鹅卵石沙滩、清澈海水、海鸥飞翔。傍晚光线柔和，拍照绝佳。提前踩点确认明早日出位置</p>
+          <span class="tag tag-play">踩点日出</span>
+          <span class="tag tag-photo">黄金时段</span>
+        </div>
+      </div>
+      <div class="time-block">
+        <div class="time-dot"></div>
+        <div class="time-label">18:30</div>
+        <div class="time-content">
+          <h4>东港威尼斯水城漫步</h4>
+          <p>欧式建筑群与运河交织，夕阳下格外浪漫。可乘贡多拉游船体验水城风情</p>
+          <span class="tag tag-play">浪漫</span>
+        </div>
+      </div>
+      <div class="time-block">
+        <div class="time-dot highlight"></div>
+        <div class="time-label">19:30</div>
+        <div class="time-content">
+          <h4>晚餐：喜鼎海胆水饺 + 东港音乐喷泉</h4>
+          <p>喜鼎海胆水饺（星海广场店），海胆馅鲜甜爆汁。饭后步行回东港看20:00音乐喷泉灯光秀</p>
+          <span class="tag tag-eat">必吃</span>
+        </div>
+      </div>
+      <div class="time-block">
+        <div class="time-dot"></div>
+        <div class="time-label">21:00</div>
+        <div class="time-content">
+          <h4>回酒店休息·定好闹钟</h4>
+          <p>明早日出 04:27，天亮 03:55。建议闹钟定 04:00，提前到海边等候</p>
+          <span class="tag tag-sunrise">定闹钟 04:00</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Day 2 -->
+<div class="section">
+  <div class="section-title">
+    <span class="icon" style="background:#FAEEDA; color:#854F0B;">2</span>
+    第二天行程
+  </div>
+  <div class="day-card">
+    <div class="day-header">
+      <span class="day-badge">Day 2</span>
+      <span class="day-date">6月14日 周日</span>
+    </div>
+
+    <div class="sunrise-box">
+      <h4>6月14日日出信息</h4>
+      <p>天亮：03:55 | 日出：<strong>04:27</strong> | 日落：19:20 | 昼长：14小时53分</p>
+      <p style="margin-top:4px;">建议 04:00 前到达海边，选好机位等待。朝东方向无遮挡处最佳。</p>
+    </div>
+
+    <div class="timeline">
+      <div class="time-block">
+        <div class="time-dot highlight" style="border-color:#BA7517; background:#BA7517; box-shadow:0 0 0 4px rgba(186,117,23,0.2);"></div>
+        <div class="time-label" style="color:#854F0B;">04:00</div>
+        <div class="time-content">
+          <h4>起床·出发看日出</h4>
+          <p>如果住<strong>四时鲸语/东港酒店</strong>：直接在房间看，或步行3-5分钟到海边<br>
+          如果住<strong>棒棰岛宾馆</strong>：步行3分钟到沙滩<br>
+          如果住<strong>星海区域</strong>：需开车15分钟到海之韵公园或棒棰岛</p>
+          <span class="tag tag-sunrise">重头戏</span>
+        </div>
+      </div>
+      <div class="time-block">
+        <div class="time-dot highlight" style="border-color:#BA7517; background:#BA7517; box-shadow:0 0 0 4px rgba(186,117,23,0.2);"></div>
+        <div class="time-label" style="color:#854F0B;">04:27</div>
+        <div class="time-content">
+          <h4>海上日出·金光万丈</h4>
+          <p>太阳从黄海海面缓缓升起，朝霞映红海面，海鸥掠过水面——大连最浪漫的时刻。持续拍摄约30分钟，不同时间段光影变化各异</p>
+          <span class="tag tag-sunrise">高光时刻</span>
+          <span class="tag tag-photo">拍照</span>
+        </div>
+      </div>
+      <div class="time-block">
+        <div class="time-dot"></div>
+        <div class="time-label">05:30</div>
+        <div class="time-content">
+          <h4>海之韵公园晨间漫步</h4>
+          <p>日出后光线柔和，漫步海之韵公园滨海栈道，晨雾中的大海格外静谧。怪坡、十八盘盘山公路值得体验</p>
+          <span class="tag tag-play">晨间散步</span>
+        </div>
+      </div>
+      <div class="time-block">
+        <div class="time-dot"></div>
+        <div class="time-label">07:30</div>
+        <div class="time-content">
+          <h4>回酒店补觉 + 早餐</h4>
+          <p>回酒店洗漱休息，享用酒店早餐。如果酒店含早最好，不含可去附近吃大连特色早餐（焖子、豆腐脑）</p>
+          <span class="tag tag-eat">早餐</span>
+        </div>
+      </div>
+      <div class="time-block">
+        <div class="time-dot highlight"></div>
+        <div class="time-label">09:30</div>
+        <div class="time-content">
+          <h4>港东五街·巨轮打卡</h4>
+          <p>2024年爆火的网红打卡地——街道尽头就是大海，巨轮从眼前驶过。每天10:30/16:30左右有轮船经过，赶10:30那班</p>
+          <span class="tag tag-play">网红打卡</span>
+          <span class="tag tag-photo">出片</span>
+        </div>
+      </div>
+      <div class="time-block">
+        <div class="time-dot highlight"></div>
+        <div class="time-label">11:00</div>
+        <div class="time-content">
+          <h4>中山广场 + 201路有轨电车</h4>
+          <p>百年历史的圆形广场，四周俄式/日式建筑环绕。乘坐201路复古有轨电车（绿皮车厢），"叮叮当当"穿越老大连</p>
+          <span class="tag tag-play">人文</span>
+          <span class="tag tag-photo">复古</span>
+        </div>
+      </div>
+      <div class="time-block">
+        <div class="time-dot"></div>
+        <div class="time-label">12:00</div>
+        <div class="time-content">
+          <h4>午餐：品海楼（老虎滩渔人码头店）</h4>
+          <p>坐拥渔人码头海景的海鲜餐厅，推荐酱爆海螺、家焖杂鱼、虾爬子。边吃边看渔船归港</p>
+          <span class="tag tag-eat">海鲜大餐</span>
+        </div>
+      </div>
+      <div class="time-block">
+        <div class="time-dot"></div>
+        <div class="time-label">13:30</div>
+        <div class="time-content">
+          <h4>渔人码头 + 银沙滩</h4>
+          <p>渔人码头拍照留念，彩色渔船+欧式灯塔。银沙滩散步，感受大连的海风与阳光</p>
+          <span class="tag tag-play">休闲</span>
+        </div>
+      </div>
+      <div class="time-block">
+        <div class="time-dot highlight"></div>
+        <div class="time-label">15:00</div>
+        <div class="time-content">
+          <h4>返程出发·回沈阳</h4>
+          <p>退房后上沈海高速G15返程，约4.5小时。中途可在鲅鱼圈服务区休息</p>
+          <span class="tag tag-drive">返程</span>
+        </div>
+      </div>
+      <div class="time-block">
+        <div class="time-dot"></div>
+        <div class="time-label">19:30</div>
+        <div class="time-content">
+          <h4>抵达沈阳</h4>
+          <p>顺利回家，结束两日大连之旅</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 美食汇总 -->
+<div class="section">
+  <div class="section-title">
+    <span class="icon" style="background:#FAEEDA; color:#854F0B;">🍜</span>
+    必吃美食清单
+  </div>
+  <div class="food-list">
+    <div class="food-item">
+      <div class="food-name">海胆水饺</div>
+      <div class="food-desc">喜鼎/正黄旗 | 鲜甜爆汁</div>
+    </div>
+    <div class="food-item">
+      <div class="food-name">海肠水饺</div>
+      <div class="food-desc">正黄旗 | Q弹爽脆</div>
+    </div>
+    <div class="food-item">
+      <div class="food-name">大连焖子</div>
+      <div class="food-desc">孟哥焖子/老姬焖子 | 地方特色</div>
+    </div>
+    <div class="food-item">
+      <div class="food-name">海鲜烧烤</div>
+      <div class="food-desc">正黄旗 | 海蛎子扇贝海螺</div>
+    </div>
+    <div class="food-item">
+      <div class="food-name">酱爆海螺</div>
+      <div class="food-desc">品海楼 | 经典大连味</div>
+    </div>
+    <div class="food-item">
+      <div class="food-name">虾爬子</div>
+      <div class="food-desc">6月正当季 | 肥美鲜甜</div>
+    </div>
+  </div>
+</div>
+
+<!-- 实用Tips -->
+<div class="section">
+  <div class="section-title">
+    <span class="icon" style="background:#FBEAF0; color:#993556;">💡</span>
+    实用贴士
+  </div>
+  <div class="tips-grid">
+    <div class="tip-card">
+      <h4>看日出装备</h4>
+      <p>6月凌晨海边约16-19°C，带薄外套。手机/相机提前充满电，带三脚架更佳。查好天气，晴天日出最美</p>
+    </div>
+    <div class="tip-card">
+      <h4>自驾注意</h4>
+      <p>沈海高速部分路段限速100，注意测速。大连市区停车位紧张，建议酒店停车后打车/地铁出行</p>
+    </div>
+    <div class="tip-card">
+      <h4>停车建议</h4>
+      <p>星海广场：地下停车场 | 棒棰岛：景区停车场20元 | 东港：路边有免费车位但紧张</p>
+    </div>
+    <div class="tip-card">
+      <h4>费用预估</h4>
+      <p>油费≈400元(往返) | 过路费≈370元(往返) | 酒店约400-900元 | 餐饮约300-500元/人</p>
+    </div>
+    <div class="tip-card">
+      <h4>6月天气</h4>
+      <p>大连6月平均18-25°C，早晚凉，中午舒适。带防晒霜+墨镜，海边紫外线强</p>
+    </div>
+    <div class="tip-card">
+      <h4>日出点位</h4>
+      <p>棒棰岛沙滩 > 海之韵旭日广场 > 东港海边 > 金石滩(较远)。前三个距市区近，推荐</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  沈阳→大连 自驾两日攻略 | 追一场海上日出<br>
+  祝旅途愉快 🌊🌅
+</footer>
+
+</body>
+</html>
