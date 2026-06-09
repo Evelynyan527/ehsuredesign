@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>大连2日自驾行程 · 4人含老人定制</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --ocean: #0B6E8A;
+  --ocean-light: #E8F4F8;
+  --ocean-mid: #B3DCE6;
+  --sand: #F5E6CC;
+  --sand-dark: #D4A96A;
+  --coral: #E8734A;
+  --coral-light: #FFF0EB;
+  --dusk: #6B5B95;
+  --dusk-light: #F0ECF5;
+  --green: #2D8F5E;
+  --green-light: #E8F5EE;
+  --text: #2C3E50;
+  --text-light: #6B7C8A;
+  --bg: #FAFCFE;
+  --card: #FFFFFF;
+  --border: #E2E8F0;
+  --shadow: 0 2px 12px rgba(11, 110, 138, 0.08);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== HERO ===== */
+.hero {
+  position: relative;
+  min-height: 520px;
+  background: linear-gradient(135deg, #0B6E8A 0%, #14919B 40%, #45B7D1 70%, #7DD3E8 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  padding: 60px 20px;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: var(--bg);
+  clip-path: ellipse(55% 100% at 50% 100%);
+}
+
+.hero-waves {
+  position: absolute;
+  bottom: 60px;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  opacity: 0.15;
+}
+
+.hero-content { position: relative; z-index: 2; max-width: 700px; }
+
+.hero-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.2);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  padding: 6px 20px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  color: #fff;
+  font-size: clamp(28px, 5vw, 44px);
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 16px;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.15);
+}
+
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.hero-tag {
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  padding: 6px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+/* ===== LAYOUT ===== */
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section {
+  margin-top: 48px;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: var(--text);
+}
+
+.section-title .icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+/* ===== WEATHER / TRANSPORT CARDS ===== */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+.info-card {
+  background: var(--card);
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+.info-card .label {
+  font-size: 12px;
+  color: var(--text-light);
+  margin-bottom: 6px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.info-card .value {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.info-card .sub {
+  font-size: 13px;
+  color: var(--text-light);
+  margin-top: 4px;
+}
+
+/* ===== HOTEL CARDS ===== */
+.hotel-card {
+  background: var(--card);
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  margin-bottom: 16px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.hotel-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(11, 110, 138, 0.12);
+}
+
+.hotel-rank {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.hotel-info { flex: 1; }
+
+.hotel-info h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.hotel-info .highlight {
+  font-size: 13px;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+.hotel-price {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.hotel-price .amount {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--coral);
+}
+
+.hotel-price .unit {
+  font-size: 12px;
+  color: var(--text-light);
+}
+
+/* ===== TIMELINE ===== */
+.day-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+  padding: 20px 24px;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.day-header.day1 {
+  background: linear-gradient(135deg, #E8F4F8 0%, #D1ECF5 100%);
+  border: 1px solid var(--ocean-mid);
+}
+
+.day-header.day2 {
+  background: linear-gradient(135deg, #FFF0EB 0%, #FFE0D3 100%);
+  border: 1px solid #F5C4B3;
+}
+
+.day-num {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.day-num.day1 { background: var(--ocean); }
+.day-num.day2 { background: var(--coral); }
+
+.day-num .d { font-size: 22px; }
+.day-num .l { font-size: 10px; font-weight: 400; opacity: 0.8; }
+
+.day-title { flex: 1; }
+
+.day-title h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.day-title .date {
+  font-size: 13px;
+  color: var(--text-light);
+}
+
+.day-budget {
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.7);
+}
+
+.timeline {
+  position: relative;
+  padding-left: 32px;
+  margin-bottom: 20px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: var(--border);
+  border-radius: 2px;
+}
+
+.tl-item {
+  position: relative;
+  padding: 12px 0;
+  padding-left: 20px;
+}
+
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -25px;
+  top: 20px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--ocean);
+  background: #fff;
+  z-index: 1;
+}
+
+.tl-item.sunrise::before {
+  border-color: var(--coral);
+  background: var(--coral);
+  box-shadow: 0 0 0 4px var(--coral-light);
+}
+
+.tl-item.food::before {
+  border-color: var(--green);
+  background: var(--green);
+  box-shadow: 0 0 0 4px var(--green-light);
+}
+
+.tl-item.drive::before {
+  border-color: var(--sand-dark);
+  background: var(--sand-dark);
+  box-shadow: 0 0 0 4px var(--sand);
+}
+
+.tl-item.hotel::before {
+  border-color: var(--dusk);
+  background: var(--dusk);
+  box-shadow: 0 0 0 4px var(--dusk-light);
+}
+
+.tl-time {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ocean);
+  margin-bottom: 4px;
+}
+
+.tl-item.sunrise .tl-time { color: var(--coral); }
+.tl-item.food .tl-time { color: var(--green); }
+.tl-item.drive .tl-time { color: var(--sand-dark); }
+.tl-item.hotel .tl-time { color: var(--dusk); }
+
+.tl-content {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 16px 20px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+  border: 1px solid var(--border);
+}
+
+.tl-name {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.tl-detail {
+  font-size: 13px;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+.tl-tag {
+  display: inline-block;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-weight: 500;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+.tag-free { background: var(--green-light); color: var(--green); }
+.tag-fee { background: var(--coral-light); color: var(--coral); }
+.tag-tip { background: #FFF8E1; color: #F57F17; }
+
+.day-highlight {
+  margin-top: 16px;
+  padding: 16px 20px;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.day1 .day-highlight {
+  background: var(--ocean-light);
+  border-left: 4px solid var(--ocean);
+}
+
+.day2 .day-highlight {
+  background: var(--coral-light);
+  border-left: 4px solid var(--coral);
+}
+
+/* ===== BUDGET ===== */
+.budget-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.budget-item {
+  background: var(--card);
+  border-radius: 12px;
+  padding: 18px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+.budget-item .emoji { font-size: 28px; margin-bottom: 8px; }
+
+.budget-item .cat {
+  font-size: 12px;
+  color: var(--text-light);
+  margin-bottom: 4px;
+}
+
+.budget-item .val {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.budget-total {
+  background: linear-gradient(135deg, var(--ocean) 0%, #14919B 100%);
+  color: #fff;
+  border-radius: 14px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(11, 110, 138, 0.25);
+}
+
+.budget-total .label { font-size: 14px; opacity: 0.85; }
+
+.budget-total .big {
+  font-size: 36px;
+  font-weight: 700;
+  margin: 8px 0;
+}
+
+.budget-total .note { font-size: 13px; opacity: 0.7; }
+
+/* ===== CHECKLIST ===== */
+.check-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.check-card {
+  background: var(--card);
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+.check-card h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.check-list {
+  list-style: none;
+}
+
+.check-list li {
+  padding: 8px 0;
+  font-size: 14px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.5;
+}
+
+.check-list li:last-child { border-bottom: none; }
+
+.check-box {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border);
+  border-radius: 5px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.check-box.checked {
+  background: var(--ocean);
+  border-color: var(--ocean);
+}
+
+.check-box.checked::after {
+  content: '✓';
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.warning-list {
+  list-style: none;
+}
+
+.warning-list li {
+  padding: 10px 0;
+  font-size: 14px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  line-height: 1.6;
+}
+
+.warning-list li:last-child { border-bottom: none; }
+
+.warn-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: #FFF3E0;
+  color: #E65100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ===== APP BAR ===== */
+.app-bar {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.app-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-size: 14px;
+  box-shadow: var(--shadow);
+}
+
+.app-chip .app-label {
+  color: var(--text-light);
+  font-size: 12px;
+}
+
+.app-chip .app-name {
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  margin-top: 60px;
+  padding: 32px 20px;
+  text-align: center;
+  border-top: 1px solid var(--border);
+}
+
+.footer p {
+  font-size: 12px;
+  color: var(--text-light);
+  line-height: 1.8;
+}
+
+/* ===== NAV ===== */
+.sticky-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(250, 252, 254, 0.9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 20px;
+}
+
+.sticky-nav .nav-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.sticky-nav .nav-inner::-webkit-scrollbar { display: none; }
+
+.nav-link {
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-light);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.nav-link:hover {
+  background: var(--ocean-light);
+  color: var(--ocean);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 640px) {
+  .hero { min-height: 400px; padding: 40px 16px; }
+  .hero h1 { font-size: 26px; }
+  .hotel-card { flex-direction: column; gap: 12px; }
+  .hotel-price { text-align: left; }
+  .day-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .budget-grid { grid-template-columns: repeat(2, 1fr); }
+  .info-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<header class="hero">
+  <svg class="hero-waves" viewBox="0 0 1440 120" preserveAspectRatio="none">
+    <path d="M0,60 C360,120 720,0 1080,60 C1260,90 1380,40 1440,60 L1440,120 L0,120 Z" fill="#fff"/>
+  </svg>
+  <div class="hero-content">
+    <div class="hero-badge">SELF-DRIVING TRIP</div>
+    <h1>大连 2 日滨海自驾行程</h1>
+    <div class="hero-meta">
+      <span class="hero-tag">🚗 沈阳出发</span>
+      <span class="hero-tag">📅 6.13–6.14</span>
+      <span class="hero-tag">👥 4人含老人</span>
+      <span class="hero-tag">💰 人均 ¥620–790</span>
+    </div>
+  </div>
+</header>
+
+<!-- ===== STICKY NAV ===== -->
+<nav class="sticky-nav">
+  <div class="nav-inner">
+    <a href="#weather" class="nav-link">🌤 天气</a>
+    <a href="#transport" class="nav-link">🚗 交通</a>
+    <a href="#hotel" class="nav-link">🏨 住宿</a>
+    <a href="#day1" class="nav-link">📅 Day 1</a>
+    <a href="#day2" class="nav-link">📅 Day 2</a>
+    <a href="#budget" class="nav-link">💰 预算</a>
+    <a href="#checklist" class="nav-link">🎒 清单</a>
+    <a href="#tips" class="nav-link">⚠️ 避坑</a>
+  </div>
+</nav>
+
+<div class="container">
+
+  <!-- ===== WEATHER ===== -->
+  <section id="weather" class="section">
+    <div class="section-title">
+      <span class="icon" style="background:#E8F4F8;">🌤</span>
+      天气与穿搭
+    </div>
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="label">气温</div>
+        <div class="value">18–26°C</div>
+        <div class="sub">海风体感偏凉</div>
+      </div>
+      <div class="info-card">
+        <div class="label">降水</div>
+        <div class="value">偶有阵雨</div>
+        <div class="sub">6月中旬进入雨季</div>
+      </div>
+      <div class="info-card">
+        <div class="label">日出</div>
+        <div class="value" style="color:var(--coral);">04:27</div>
+        <div class="sub">东港面朝东方看日出</div>
+      </div>
+      <div class="info-card">
+        <div class="label">日落</div>
+        <div class="value">19:19</div>
+        <div class="sub">星海广场看日落极佳</div>
+      </div>
+      <div class="info-card" style="grid-column: 1 / -1;">
+        <div class="label">穿搭建议</div>
+        <div class="value" style="font-size:15px;">白天短袖 + 薄长裤 · 早晚备防风薄外套 · 舒适平底鞋</div>
+        <div class="sub">必备：防晒霜 SPF30+ / 墨镜 / 折叠伞 / 驱蚊液</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TRANSPORT ===== -->
+  <section id="transport" class="section">
+    <div class="section-title">
+      <span class="icon" style="background:var(--sand);">🚗</span>
+      城际交通
+    </div>
+    <div class="info-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+      <div class="info-card">
+        <div class="label">去程 · 6月13日</div>
+        <div class="value" style="font-size:16px;">沈阳 → 沈海高速(G15) → 大连</div>
+        <div class="sub">距离 ~390km · 耗时 ~4.5h · 高速 ¥185 · 油费 ~¥230</div>
+        <div class="sub" style="color:var(--ocean);font-weight:500;">建议 07:00 出发，11:30 抵达</div>
+      </div>
+      <div class="info-card">
+        <div class="label">返程 · 6月14日</div>
+        <div class="value" style="font-size:16px;">大连 → 沈海高速(G15) → 沈阳</div>
+        <div class="sub">距离 ~390km · 耗时 ~4.5h · 高速 ¥185 · 油费 ~¥230</div>
+        <div class="sub" style="color:var(--coral);font-weight:500;">建议 14:00 出发，18:30 抵达</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HOTEL ===== -->
+  <section id="hotel" class="section">
+    <div class="section-title">
+      <span class="icon" style="background:var(--dusk-light);">🏨</span>
+      住宿推荐 · 东港片区（看日出首选）
+    </div>
+    <p style="font-size:14px;color:var(--text-light);margin-bottom:20px;line-height:1.7;">
+      东港位于大连东海岸，面朝东方，是看海上日出的最佳区域。6月14日日出 <strong style="color:var(--coral);">04:27</strong>，选东港海景房可在房间内直接看日出，老人不用早起赶路。<br>
+      <strong>务必选"东向海景房"</strong>，预订时在备注中注明。4人建议订2间大床房或1间家庭套房。
+    </p>
+
+    <div class="hotel-card">
+      <div class="hotel-rank" style="background:var(--green-light);">💰</div>
+      <div class="hotel-info">
+        <h3>海韵乐宿酒店（东港商务区店）</h3>
+        <div class="highlight">步行到海边5分钟，价格友好，经济首选</div>
+      </div>
+      <div class="hotel-price">
+        <div class="amount">¥250–350</div>
+        <div class="unit">/晚</div>
+      </div>
+    </div>
+
+    <div class="hotel-card" style="border:2px solid var(--ocean);">
+      <div class="hotel-rank" style="background:var(--ocean-light);">⭐</div>
+      <div class="hotel-info">
+        <h3>爱沐四季海景公寓（东港威尼斯水城店）<span class="tl-tag tag-tip">推荐</span></h3>
+        <div class="highlight">携程4.6分 · 高层海景房可躺看日出 · 公寓式带厨房 · 步行至海之韵海滩5分钟</div>
+      </div>
+      <div class="hotel-price">
+        <div class="amount">¥350–500</div>
+        <div class="unit">/晚</div>
+      </div>
+    </div>
+
+    <div class="hotel-card">
+      <div class="hotel-rank" style="background:var(--sand);">🌟</div>
+      <div class="hotel-info">
+        <h3>云朵海景公寓式酒店（东港威尼斯水城店）</h3>
+        <div class="highlight">威尼斯水城旁 · 高层海景 · 房间宽敞</div>
+      </div>
+      <div class="hotel-price">
+        <div class="amount">¥350–500</div>
+        <div class="unit">/晚</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== DAY 1 ===== -->
+  <section id="day1" class="section">
+    <div class="day-header day1">
+      <div class="day-num day1">
+        <span class="d">1</span>
+        <span class="l">DAY</span>
+      </div>
+      <div class="day-title">
+        <h2>滨海风光线</h2>
+        <div class="date">6月13日 周六</div>
+      </div>
+      <div class="day-budget" style="color:var(--ocean);">💰 人均 ¥350–450</div>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item drive">
+        <div class="tl-time">07:00</div>
+        <div class="tl-content">
+          <div class="tl-name">沈阳出发，走沈海高速(G15)</div>
+          <div class="tl-detail">提前加满油，备好零食水，约4.5小时抵达</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">11:30</div>
+        <div class="tl-content">
+          <div class="tl-name">抵达大连，东港酒店寄存行李</div>
+          <div class="tl-detail">大部分酒店14:00后才能入住，先寄存行李</div>
+        </div>
+      </div>
+
+      <div class="tl-item food">
+        <div class="tl-time">12:00</div>
+        <div class="tl-content">
+          <div class="tl-name">🍽️ 午餐 · 东港威尼斯水城附近</div>
+          <div class="tl-detail">推荐：品海小厨（人均 ¥60–80，海鲜小炒+焖子）</div>
+        </div>
+      </div>
+
+      <div class="tl-item drive">
+        <div class="tl-time">13:30</div>
+        <div class="tl-content">
+          <div class="tl-name">🚗 滨海路自驾 <span class="tl-tag tag-tip">精华线</span></div>
+          <div class="tl-detail">东港→海之韵→棒棰岛→老虎滩→燕窝岭→付家庄→星海广场<br>全程18–22km，边开边停拍照，老人在车上观景即可</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">13:40</div>
+        <div class="tl-content">
+          <div class="tl-name">海之韵公园 <span class="tl-tag tag-free">免费</span></div>
+          <div class="tl-detail">海边栈道，下车拍拍照就走，约20分钟</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">14:20</div>
+        <div class="tl-content">
+          <div class="tl-name">棒棰岛 <span class="tl-tag tag-fee">¥20</span></div>
+          <div class="tl-detail">国宾馆区海滩，海水清澈，适合拍照打卡，约30分钟</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">15:00</div>
+        <div class="tl-content">
+          <div class="tl-name">🐯 老虎滩海洋公园 <span class="tl-tag tag-fee">老人半价/免票</span></div>
+          <div class="tl-detail">60–69岁半价，70+免大门票。选看极地馆+珊瑚馆即可，约1.5小时</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">16:30</div>
+        <div class="tl-content">
+          <div class="tl-name">燕窝岭 → 付家庄（沿途观景）</div>
+          <div class="tl-detail">不下车也美，约30分钟车程</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">17:00</div>
+        <div class="tl-content">
+          <div class="tl-name">🌊 星海广场 <span class="tl-tag tag-free">免费</span></div>
+          <div class="tl-detail">大连地标！喂海鸥、漫步海边木栈道、看亚洲最大城市广场</div>
+        </div>
+      </div>
+
+      <div class="tl-item food">
+        <div class="tl-time">18:30</div>
+        <div class="tl-content">
+          <div class="tl-name">🍽️ 晚餐 · 星海广场附近</div>
+          <div class="tl-detail">推荐：日月明小渔村（人均 ¥80–120）或 喜鼎海胆水饺（人均 ¥60–90）</div>
+        </div>
+      </div>
+
+      <div class="tl-item hotel">
+        <div class="tl-time">20:00</div>
+        <div class="tl-content">
+          <div class="tl-name">回到东港酒店，办理入住</div>
+          <div class="tl-detail">早点休息，明天 04:00 要看日出！</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-highlight">
+      🎯 <strong>本日亮点</strong>：滨海路自驾，左手山右手海，一路无敌海景
+    </div>
+  </section>
+
+  <!-- ===== DAY 2 ===== -->
+  <section id="day2" class="section">
+    <div class="day-header day2">
+      <div class="day-num day2">
+        <span class="d">2</span>
+        <span class="l">DAY</span>
+      </div>
+      <div class="day-title">
+        <h2>日出 + 东港慢游线</h2>
+        <div class="date">6月14日 周日</div>
+      </div>
+      <div class="day-budget" style="color:var(--coral);">💰 人均 ¥250–350</div>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item sunrise">
+        <div class="tl-time">04:00</div>
+        <div class="tl-content">
+          <div class="tl-name">⏰ 起床准备看日出</div>
+          <div class="tl-detail">如果住东向海景房，在房间阳台就能看！不用出门</div>
+        </div>
+      </div>
+
+      <div class="tl-item sunrise">
+        <div class="tl-time">04:27</div>
+        <div class="tl-content">
+          <div class="tl-name">🌅 海上日出</div>
+          <div class="tl-detail">东港海边/海之韵海滩，面朝东方看太阳从海面升起，绝美</div>
+        </div>
+      </div>
+
+      <div class="tl-item hotel">
+        <div class="tl-time">05:00</div>
+        <div class="tl-content">
+          <div class="tl-name">补觉</div>
+          <div class="tl-detail">回房间再睡一觉，约2.5小时</div>
+        </div>
+      </div>
+
+      <div class="tl-item food">
+        <div class="tl-time">08:00</div>
+        <div class="tl-content">
+          <div class="tl-name">🍽️ 早餐</div>
+          <div class="tl-detail">酒店附近早餐店，尝尝大连特色海菜包子+咸鱼饼子</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">09:30</div>
+        <div class="tl-content">
+          <div class="tl-name">🏰 东港威尼斯水城 <span class="tl-tag tag-free">免费</span></div>
+          <div class="tl-detail">酒店步行即达！欧式水城+贡多拉游船，晨光下拍照极美，老人慢慢逛不累</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">11:00</div>
+        <div class="tl-content">
+          <div class="tl-name">⚓ 渔人码头 <span class="tl-tag tag-free">免费</span></div>
+          <div class="tl-detail">开车15分钟，停满渔船的小港，老渔村味道，适合拍人文照</div>
+        </div>
+      </div>
+
+      <div class="tl-item food">
+        <div class="tl-time">12:00</div>
+        <div class="tl-content">
+          <div class="tl-name">🍽️ 午餐 · 渔人码头附近</div>
+          <div class="tl-detail">推荐：小渔村海鲜大排档（人均 ¥60–90，现捞现做）</div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">13:00</div>
+        <div class="tl-content">
+          <div class="tl-name">🏛️ 中山广场 + 俄罗斯风情街 <span class="tl-tag tag-free">免费</span></div>
+          <div class="tl-detail">开车10分钟，百年欧式建筑群，感受"东方小巴黎"的历史底蕴</div>
+        </div>
+      </div>
+
+      <div class="tl-item drive">
+        <div class="tl-time">14:00</div>
+        <div class="tl-content">
+          <div class="tl-name">🚗 返程沈阳</div>
+          <div class="tl-detail">走沈海高速，约4.5小时，18:30左右抵达沈阳</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-highlight" style="background:var(--coral-light);border-left-color:var(--coral);">
+      🎯 <strong>本日亮点</strong>：凌晨海上日出 + 威尼斯水城晨光 + 渔人码头渔村味 + 中山广场百年建筑
+    </div>
+  </section>
+
+  <!-- ===== BUDGET ===== -->
+  <section id="budget" class="section">
+    <div class="section-title">
+      <span class="icon" style="background:#FFF8E1;">💰</span>
+      总预算拆解（4人合计）
+    </div>
+    <div class="budget-grid">
+      <div class="budget-item">
+        <div class="emoji">🚗</div>
+        <div class="cat">交通</div>
+        <div class="val">¥210<span style="font-size:12px;font-weight:400;color:var(--text-light);">/人</span></div>
+      </div>
+      <div class="budget-item">
+        <div class="emoji">🏨</div>
+        <div class="cat">住宿</div>
+        <div class="val">¥120–150<span style="font-size:12px;font-weight:400;color:var(--text-light);">/人</span></div>
+      </div>
+      <div class="budget-item">
+        <div class="emoji">🎫</div>
+        <div class="cat">门票</div>
+        <div class="val">¥40–60<span style="font-size:12px;font-weight:400;color:var(--text-light);">/人</span></div>
+      </div>
+      <div class="budget-item">
+        <div class="emoji">🍽️</div>
+        <div class="cat">餐饮</div>
+        <div class="val">¥200–280<span style="font-size:12px;font-weight:400;color:var(--text-light);">/人</span></div>
+      </div>
+      <div class="budget-item">
+        <div class="emoji">🛒</div>
+        <div class="cat">其他</div>
+        <div class="val">¥50–80<span style="font-size:12px;font-weight:400;color:var(--text-light);">/人</span></div>
+      </div>
+    </div>
+    <div class="budget-total">
+      <div class="label">4人总预算</div>
+      <div class="big">¥2,470 – 3,150</div>
+      <div class="note">人均 ¥620–790 · 落在 500–1000 元区间内</div>
+    </div>
+  </section>
+
+  <!-- ===== CHECKLIST ===== -->
+  <section id="checklist" class="section">
+    <div class="section-title">
+      <span class="icon" style="background:var(--green-light);">🎒</span>
+      预约 & 行前清单
+    </div>
+    <div class="check-grid">
+      <div class="check-card">
+        <h3>🚨 必做预约</h3>
+        <ul class="check-list">
+          <li><span class="check-box"></span>住宿：尽早预订东港海景房（携程/美团/飞猪）</li>
+          <li><span class="check-box"></span>老虎滩海洋公园：官方公众号或携程提前买票</li>
+        </ul>
+      </div>
+      <div class="check-card">
+        <h3>🎒 行前物品</h3>
+        <ul class="check-list">
+          <li><span class="check-box checked"></span>驾照 + 行驶证 + 保险单</li>
+          <li><span class="check-box checked"></span>防风薄外套（日出时段仅 16–18°C）</li>
+          <li><span class="check-box checked"></span>防晒霜 SPF30+ + 墨镜</li>
+          <li><span class="check-box checked"></span>折叠伞（6月阵雨多）</li>
+          <li><span class="check-box checked"></span>舒适运动鞋/平底鞋</li>
+          <li><span class="check-box checked"></span>老人常用药品 + 晕车药</li>
+          <li><span class="check-box checked"></span>充电宝 + 车载手机支架</li>
+          <li><span class="check-box checked"></span>现金零钱</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TIPS ===== -->
+  <section id="tips" class="section">
+    <div class="section-title">
+      <span class="icon" style="background:#FFF3E0;">⚠️</span>
+      避坑提示
+    </div>
+    <div class="check-card">
+      <ul class="warning-list">
+        <li>
+          <span class="warn-icon">!</span>
+          <div><strong>滨海路自驾别赶时间</strong>：弯多坡多，限速40–60km/h，享受风景别飙车</div>
+        </li>
+        <li>
+          <span class="warn-icon">!</span>
+          <div><strong>老虎滩别买全馆票</strong>：老人走不完五馆，选极地馆+珊瑚馆即可</div>
+        </li>
+        <li>
+          <span class="warn-icon">!</span>
+          <div><strong>海鲜防宰</strong>：去明码标价的店，点菜前确认是按"斤"还是"份"计价</div>
+        </li>
+        <li>
+          <span class="warn-icon">!</span>
+          <div><strong>海边风大</strong>：6月海风4–5级常见，老人注意防风保暖</div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===== APPS ===== -->
+  <section class="section">
+    <div class="section-title">
+      <span class="icon" style="background:var(--ocean-light);">📱</span>
+      推荐 App
+    </div>
+    <div class="app-bar">
+      <div class="app-chip">
+        <div>
+          <div class="app-label">导航</div>
+          <div class="app-name">高德地图</div>
+        </div>
+      </div>
+      <div class="app-chip">
+        <div>
+          <div class="app-label">买票</div>
+          <div class="app-name">携程 / 美团</div>
+        </div>
+      </div>
+      <div class="app-chip">
+        <div>
+          <div class="app-label">天气</div>
+          <div class="app-name">中国天气</div>
+        </div>
+      </div>
+      <div class="app-chip">
+        <div>
+          <div class="app-label">停车</div>
+          <div class="app-name">ETCP</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <p>⚠️ 以上信息基于公开资料整理，实际票价、预约政策以各景区/平台官方发布为准。</p>
+  <p style="margin-top:8px;">大连2日自驾行程 · 4人含老人定制 · 2026年6月13–14日</p>
+</footer>
+
+<script>
+// Toggle checkbox on click
+document.querySelectorAll('.check-box').forEach(function(box) {
+  box.addEventListener('click', function() {
+    this.classList.toggle('checked');
+  });
+});
+</script>
+</body>
+</html>
